@@ -8,6 +8,10 @@ using FolderMonitor.Views.PageView;
 using FolderMonitor.Handlers;
 using System;
 using System.Windows;
+using FolderMonitor.Controllers.DirectoryTrackerController;
+using FolderMonitor.Views.DirectoryTrackerView;
+using FolderMonitor.Memento.TrackersMemento;
+using System.ComponentModel;
 
 namespace FolderMonitor
 {
@@ -20,8 +24,13 @@ namespace FolderMonitor
 
         public IDirectoryChangeController itsDirectoryChangeController;
         public IDirectoryChangeView itsDirectoryChangeView;
-        public PageController itsPageController;
+
         public FolderMonitorHandler itsFolderMonitorHandler;
+
+        public IDirectoryTrackerController itsDirectoryTrackerController;
+        public IDirectoryTrackerView itsDirectoryTrackerView;
+
+        public PageController itsPageController;
         public PageView itsPageView;
 
         public MainWindow()
@@ -35,6 +44,10 @@ namespace FolderMonitor
 
             itsFolderMonitorHandler = new FolderMonitorHandler(itsDirectoryChangeController);
 
+            itsDirectoryTrackerController = new DirectoryTrackerController();
+            DirectoryTrackerSaver.LoadDirectoryTrackers(itsDirectoryTrackerController);
+            itsDirectoryTrackerView = new DirectoryTrackerView((DirectoryTrackerController)itsDirectoryTrackerController);
+
             itsPageController = new PageController(AboutMenuReader.GetAboutMenuPages());
             itsPageView = new PageView(itsPageController);
         }
@@ -46,6 +59,11 @@ namespace FolderMonitor
         private void Window_Loaded(object sender, EventArgs e)
         {
             mainFrame.Content = new MainMenuPage(this); // move to main menu
+        }
+        private void Game_Closing(object sender, CancelEventArgs e)
+        {
+            DirectoryChangeSaver.SaveDirectoryChanges(itsDirectoryChangeController);
+            DirectoryTrackerSaver.SaveDirectoryTrackers(itsDirectoryTrackerController);
         }
     }
 }
