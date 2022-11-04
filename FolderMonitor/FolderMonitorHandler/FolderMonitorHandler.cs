@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using System.Linq;
+using FolderMonitor.Models.DirectoryTrackerModel;
 
-namespace FolderMonitor.FolderMonitorHandler
+namespace FolderMonitor.Handlers
 {
     public class FolderMonitorHandler
     {
@@ -19,13 +20,13 @@ namespace FolderMonitor.FolderMonitorHandler
         }
 
 
-        public bool AddFolderToMonitor(string path, string filter = "")
+        public bool AddFolderToMonitor(IDirectoryTrackerModel trackerModel)
         {
-            if (!itsFilesSystemWatcher.Contains(itsFilesSystemWatcher.Where(fsw => fsw.Path == path).SingleOrDefault()))
+            if (!itsFilesSystemWatcher.Contains(itsFilesSystemWatcher.Where(fsw => fsw.Path == trackerModel.FolderPath).SingleOrDefault()))
             {
-                itsFilesSystemWatcher.Add(new FileSystemWatcher(path));
+                itsFilesSystemWatcher.Add(new FileSystemWatcher(trackerModel.FolderPath));
                 itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;
-                itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].Filter = filter;
+                itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].Filter = trackerModel.Filter;
                 itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].Created += OnCreated;
                 itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].Deleted += OnDeleted;
                 itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].Changed += OnChanged;
@@ -35,9 +36,9 @@ namespace FolderMonitor.FolderMonitorHandler
             else
                 return false;
         }
-        public void RemoveFolderFromMonitor(string path)
+        public void RemoveFolderFromMonitor(IDirectoryTrackerModel trackerModel)
         {
-            itsFilesSystemWatcher.Remove(itsFilesSystemWatcher.Where(fsw => fsw.Path == path).SingleOrDefault());
+            itsFilesSystemWatcher.Remove(itsFilesSystemWatcher.Where(fsw => fsw.Path == trackerModel.FolderPath).SingleOrDefault());
         }
 
 

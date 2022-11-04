@@ -13,10 +13,10 @@ namespace FolderMonitor.Controllers.DirectoryChangeController
         public IDirectoryChangeView ChangeView { set { itsDirectoryChangeView = (DirectoryChangeView)value; } }
 
         public DirectoryChangeController() { itsChanges = new List<DirectoryChangeModel>(); itsDirectoryChangeView = null; }
-        public DirectoryChangeController(List<IDirectoryChangeModel> changes, DirectoryChangeView directoryChangeView = null) 
+        public DirectoryChangeController(List<IDirectoryChangeModel> changes, IDirectoryChangeView directoryChangeView = null) 
         { 
             itsChanges = changes.Cast<DirectoryChangeModel>().ToList(); 
-            itsDirectoryChangeView = directoryChangeView;
+            itsDirectoryChangeView = (DirectoryChangeView)directoryChangeView;
         }
 
         public List<IDirectoryChangeModel> Changes { get { return itsChanges.Cast<IDirectoryChangeModel>().ToList(); } }
