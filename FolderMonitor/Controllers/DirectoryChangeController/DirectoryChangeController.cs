@@ -10,7 +10,7 @@ namespace FolderMonitor.Controllers.DirectoryChangeController
     {
         private List<DirectoryChangeModel> itsChanges;
         private DirectoryChangeView itsDirectoryChangeView;
-        public DirectoryChangeView DirectoryChangeView { set { itsDirectoryChangeView = value; } }
+        public IDirectoryChangeView ChangeView { set { itsDirectoryChangeView = (DirectoryChangeView)value; } }
 
         public DirectoryChangeController() { itsChanges = new List<DirectoryChangeModel>(); itsDirectoryChangeView = null; }
         public DirectoryChangeController(List<IDirectoryChangeModel> changes, DirectoryChangeView directoryChangeView = null) 

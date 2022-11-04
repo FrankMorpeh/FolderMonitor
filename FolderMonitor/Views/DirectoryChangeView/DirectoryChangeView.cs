@@ -8,13 +8,15 @@ namespace FolderMonitor.Views.DirectoryChangeView
         private ListView itsChangesListView;
         private DirectoryChangeController itsDirectoryChangeController;
         public ListView ChangesListView { set { itsChangesListView = value; } }
-        public DirectoryChangeController DirectoryChangeController { set { itsDirectoryChangeController = value; } }
+        public IDirectoryChangeController ChangeController { set { itsDirectoryChangeController = (DirectoryChangeController)value; } }
+
 
         public DirectoryChangeView(DirectoryChangeController directoryChangeController = null) 
         {
             itsChangesListView = null;
             itsDirectoryChangeController = directoryChangeController; 
         }
+
 
         public void ShowChanges()
         {

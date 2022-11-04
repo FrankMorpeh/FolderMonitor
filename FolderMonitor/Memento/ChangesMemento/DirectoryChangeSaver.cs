@@ -1,15 +1,14 @@
 ﻿using FolderMonitor.Controllers.DirectoryChangeController;
-using FolderMonitor.Memento.DirectoryChanges;
 
 namespace FolderMonitor.Memento.DirectoryChanges
 {
     public static class DirectoryChangeSaver
     {
-        public static void SaveDirectoryChanges(DirectoryChangeController directoryChangeController)
+        public static void SaveDirectoryChanges(IDirectoryChangeController directoryChangeController)
         {
             DirectoryChangeFileSaver.SaveDirectoryChangesToFile(directoryChangeController.SaveState());
         }
-        public static void LoadDirectoryChanges(DirectoryChangeController directoryChangeController)
+        public static void LoadDirectoryChanges(IDirectoryChangeController directoryChangeController)
         {
             DirectoryChangeMemento directoryChangeMemento = DirectoryChangeFileSaver.LoadDirectoryChangesFromFile();
             if (directoryChangeMemento != null)

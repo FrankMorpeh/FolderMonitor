@@ -14,8 +14,8 @@ namespace FolderMonitor
     {
         public static string itsInitialLocation;
 
-        public DirectoryChangeController itsDirectoryChangeController;
-        public DirectoryChangeView itsDirectoryChangeView;
+        public IDirectoryChangeController itsDirectoryChangeController;
+        public IDirectoryChangeView itsDirectoryChangeView;
 
         public MainWindow()
         {
@@ -23,8 +23,8 @@ namespace FolderMonitor
 
             itsDirectoryChangeController = new DirectoryChangeController();
             DirectoryChangeSaver.LoadDirectoryChanges(itsDirectoryChangeController);
-            itsDirectoryChangeView = new DirectoryChangeView(itsDirectoryChangeController);
-            itsDirectoryChangeController.DirectoryChangeView = itsDirectoryChangeView;
+            itsDirectoryChangeView = new DirectoryChangeView((DirectoryChangeController)itsDirectoryChangeController);
+            itsDirectoryChangeController.ChangeView = itsDirectoryChangeView;
         }
         static MainWindow()
         {
