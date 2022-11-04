@@ -1,7 +1,10 @@
 ﻿using FolderMonitor.Controllers.DirectoryChangeController;
+using FolderMonitor.Controllers.PageController;
+using FolderMonitor.FileReaders.TxtReader;
 using FolderMonitor.Memento.DirectoryChanges;
 using FolderMonitor.Pages;
 using FolderMonitor.Views.DirectoryChangeView;
+using FolderMonitor.Views.PageView;
 using System;
 using System.Windows;
 
@@ -16,6 +19,8 @@ namespace FolderMonitor
 
         public IDirectoryChangeController itsDirectoryChangeController;
         public IDirectoryChangeView itsDirectoryChangeView;
+        public PageController itsPageController;
+        public PageView itsPageView;
 
         public MainWindow()
         {
@@ -25,6 +30,9 @@ namespace FolderMonitor
             DirectoryChangeSaver.LoadDirectoryChanges(itsDirectoryChangeController);
             itsDirectoryChangeView = new DirectoryChangeView((DirectoryChangeController)itsDirectoryChangeController);
             itsDirectoryChangeController.ChangeView = itsDirectoryChangeView;
+
+            itsPageController = new PageController(AboutMenuReader.GetAboutMenuPages());
+            itsPageView = new PageView(itsPageController);
         }
         static MainWindow()
         {
