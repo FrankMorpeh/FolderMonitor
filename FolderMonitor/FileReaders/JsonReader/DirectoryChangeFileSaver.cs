@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Text.Json;
 
-namespace FolderMonitor.Memento.DirectoryChanges
+namespace FolderMonitor.FileReaders.JsonReader
 {
     public static class DirectoryChangeFileSaver
     {
