@@ -10,7 +10,7 @@ namespace FolderMonitor.Controllers.DirectoryTrackerController
     public class DirectoryTrackerController : IDirectoryTrackerController
     {
         private List<DirectoryTrackerModel> itsTrackers;
-        private event Func<IDirectoryTrackerModel, bool> itsAddTrackerEvent;
+        private event Func<IDirectoryTrackerModel, int> itsAddTrackerEvent;
         private event Action<IDirectoryTrackerModel> itsRemoveTrackerEvent;
         public List<IDirectoryTrackerModel> Trackers { get { return itsTrackers.Cast<IDirectoryTrackerModel>().ToList(); } }
 
@@ -31,7 +31,7 @@ namespace FolderMonitor.Controllers.DirectoryTrackerController
 
         public void AddTracker(IDirectoryTrackerModel tracker)
         {
-            itsAddTrackerEvent(tracker);
+            tracker.IndexInFileWatcher = itsAddTrackerEvent(tracker);
             itsTrackers.Add((DirectoryTrackerModel)tracker);
         }
         public void RemoveTracker(int index)

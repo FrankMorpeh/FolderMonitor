@@ -20,9 +20,9 @@ namespace FolderMonitor.Handlers
         }
 
 
-        public bool AddFolderToMonitor(IDirectoryTrackerModel trackerModel)
+        public int AddFolderToMonitor(IDirectoryTrackerModel trackerModel)
         {
-            if (!itsFilesSystemWatcher.Contains(itsFilesSystemWatcher.Where(fsw => fsw.Path == trackerModel.FolderPath).SingleOrDefault()))
+            if (!itsFilesSystemWatcher.Contains(itsFilesSystemWatcher.Where(fsw => fsw.Equals(trackerModel)).SingleOrDefault()))
             {
                 itsFilesSystemWatcher.Add(new FileSystemWatcher(trackerModel.FolderPath));
                 itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;
@@ -31,10 +31,10 @@ namespace FolderMonitor.Handlers
                 itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].Deleted += OnDeleted;
                 itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].Changed += OnChanged;
                 itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].Renamed += OnRenamed;
-                return true;
+                return itsFilesSystemWatcher.Count - 1;
             }
             else
-                return false;
+                return -1;
         }
         public void RemoveFolderFromMonitor(IDirectoryTrackerModel trackerModel)
         {

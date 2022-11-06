@@ -8,6 +8,14 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainMenuPage">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/InterfaceTemplates/MenuDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="pack://siteoforigin:,,,/SystemMedia/Images/WhiteBackground.jpg"/>
@@ -36,18 +44,29 @@
             </ListView.View>
         </ListView>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button Click="AddTracker_Click">Add tracker</Button>
-            <GridSplitter Width="10" Background="Transparent"></GridSplitter>
-            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Label>Folder:</Label>
-                    <Button>Choose</Button>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Width="200" Height="300">
+                <Button Click="AddTracker_Click" MaxHeight="50" MaxWidth="100">Add tracker</Button>
+                <GridSplitter Width="10"></GridSplitter>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Label>Folder:</Label>
+                        <Button Click="ChooseFolder_Click">Choose</Button>
+                    </StackPanel>
+                    <GridSplitter Height="10"></GridSplitter>
+                    <StackPanel Orientation="Horizontal">
+                        <Label>Filter:</Label>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel x:Name="filtersStackPanel">
+                                <TextBox MaxWidth="75" MaxHeight="30"></TextBox>
+                            </StackPanel>
+                            <Button Click="AddFilter_Click">Add filter</Button>
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
-                <GridSplitter Background="Transparent" Height="10"></GridSplitter>
-                <Label>Filter (*.format, *.format2):</Label>
-                <TextBox MaxWidth="75" MaxHeight="100"></TextBox>
             </StackPanel>
+            <Button MaxHeight="50" MaxWidth="100" Click="DeleteTracker_Click">Delete tracker</Button>
         </StackPanel>
 
         <ListView x:Name="directoryChangesListView" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Center"
@@ -60,5 +79,14 @@
                 </GridView>
             </ListView.View>
         </ListView>
+
+        <StackPanel x:Name="itsWarningStackPanel" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
+            <TextBlock x:Name="itsWarningTextBlock" HorizontalAlignment="Center"
+                       TextWrapping="Wrap"/>
+            <GridSplitter Height="15"/>
+            <Button x:Name="okButton" Content="OK" MaxWidth="75" MaxHeight="60" Click="WarningOkButton_Click"/>
+            <GridSplitter Height="15"/>
+        </StackPanel>
     </Grid>
 </Page>
