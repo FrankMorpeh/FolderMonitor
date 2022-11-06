@@ -9,6 +9,52 @@
       Title="MainMenuPage">
 
     <Grid>
-        
+        <Grid.Background>
+            <ImageBrush ImageSource="pack://siteoforigin:,,,/SystemMedia/Images/WhiteBackground.jpg"/>
+        </Grid.Background>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.33*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.33*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.12*"></ColumnDefinition>
+            <ColumnDefinition Width="0.33*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="0.12*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <ListView x:Name="trackedDirectoriesListView" Grid.Row="1" Grid.Column="1" MaxWidth="350" MaxHeight="250">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Folder path" DisplayMemberBinding="{Binding Path=FolderPath}" Width="250"/>
+                    <GridViewColumn Header="Filter" DisplayMemberBinding="{Binding Path=Filter}" Width="75"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button>Add tracker</Button>
+            <GridSplitter Width="10" Background="Transparent"></GridSplitter>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <Label>Filter: (.format)</Label>
+                <TextBox MaxWidth="75" MaxHeight="100"></TextBox>
+                <GridSplitter Background="Transparent" Height="10"></GridSplitter>
+            </StackPanel>
+        </StackPanel>
+
+        <ListView x:Name="directoryChangesListView" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Center"
+                  HorizontalAlignment="Center" MaxWidth="700" MaxHeight="450">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Change type" DisplayMemberBinding="{Binding Path=FolderPath}" Width="75"/>
+                    <GridViewColumn Header="Name of change" DisplayMemberBinding="{Binding Path=Filter}" Width="400"/>
+                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Path=Filter}" Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Page>

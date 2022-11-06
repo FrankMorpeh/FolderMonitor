@@ -1,4 +1,5 @@
-﻿using FolderMonitor.Memento.TrackersMemento;
+﻿using FolderMonitor.Handlers;
+using FolderMonitor.Memento.TrackersMemento;
 using FolderMonitor.Models.DirectoryTrackerModel;
 using System;
 using System.Collections.Generic;
@@ -9,22 +10,29 @@ namespace FolderMonitor.Controllers.DirectoryTrackerController
     public class DirectoryTrackerController : IDirectoryTrackerController
     {
         private List<DirectoryTrackerModel> itsTrackers;
-        private event Action<IDirectoryTrackerModel> itsAddTrackerEvent;
+        private event Func<IDirectoryTrackerModel, bool> itsAddTrackerEvent;
         private event Action<IDirectoryTrackerModel> itsRemoveTrackerEvent;
         public List<IDirectoryTrackerModel> Trackers { get { return itsTrackers.Cast<IDirectoryTrackerModel>().ToList(); } }
 
 
-        public DirectoryTrackerController() { itsTrackers = new List<DirectoryTrackerModel>(); }
-        public DirectoryTrackerController(List<IDirectoryTrackerModel> trackers)
+        public DirectoryTrackerController() 
+        { 
+            itsTrackers = new List<DirectoryTrackerModel>();
+            itsAddTrackerEvent = null;
+            itsRemoveTrackerEvent = null;
+        }
+        public DirectoryTrackerController(List<IDirectoryTrackerModel> trackers, FolderMonitorHandler folderMonitorHandler)
         {
             itsTrackers = trackers.Cast<DirectoryTrackerModel>().ToList();
+            itsAddTrackerEvent += folderMonitorHandler.AddFolderToMonitor;
+            itsRemoveTrackerEvent += folderMonitorHandler.RemoveFolderFromMonitor;
         }
 
 
         public void AddTracker(IDirectoryTrackerModel tracker)
         {
-            itsTrackers.Add((DirectoryTrackerModel)tracker);
             itsAddTrackerEvent(tracker);
+            itsTrackers.Add((DirectoryTrackerModel)tracker);
         }
         public void RemoveTracker(int index)
         {
