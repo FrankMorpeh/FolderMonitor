@@ -37,12 +37,16 @@
         </ListView>
 
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button>Add tracker</Button>
+            <Button Click="AddTracker_Click">Add tracker</Button>
             <GridSplitter Width="10" Background="Transparent"></GridSplitter>
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                <Label>Filter: (.format)</Label>
-                <TextBox MaxWidth="75" MaxHeight="100"></TextBox>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Label>Folder:</Label>
+                    <Button>Choose</Button>
+                </StackPanel>
                 <GridSplitter Background="Transparent" Height="10"></GridSplitter>
+                <Label>Filter (*.format, *.format2):</Label>
+                <TextBox MaxWidth="75" MaxHeight="100"></TextBox>
             </StackPanel>
         </StackPanel>
 
@@ -50,9 +54,9 @@
                   HorizontalAlignment="Center" MaxWidth="700" MaxHeight="450">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Change type" DisplayMemberBinding="{Binding Path=FolderPath}" Width="75"/>
-                    <GridViewColumn Header="Name of change" DisplayMemberBinding="{Binding Path=Filter}" Width="400"/>
-                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Path=Filter}" Width="200"/>
+                    <GridViewColumn Header="Change type" DisplayMemberBinding="{Binding Path=ChangeType}" Width="75"/>
+                    <GridViewColumn Header="Name of change" DisplayMemberBinding="{Binding Path=ChangeName}" Width="400"/>
+                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Path=ChangeTime}" Width="200"/>
                 </GridView>
             </ListView.View>
         </ListView>

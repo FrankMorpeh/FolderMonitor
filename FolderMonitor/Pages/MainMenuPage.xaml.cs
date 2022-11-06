@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace FolderMonitor.Pages
 {
@@ -13,6 +14,10 @@ namespace FolderMonitor.Pages
         {
             InitializeComponent();
             itsContent = content;
+        }
+        private void AddTracker_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
