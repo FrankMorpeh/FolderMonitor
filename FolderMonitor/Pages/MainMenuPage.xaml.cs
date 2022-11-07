@@ -1,10 +1,10 @@
-﻿using FolderMonitor.Builders.FilterBuilder;
+﻿using FolderMonitor.Builders.OpenFileDialogBuilder;
+using FolderMonitor.Controllers.FilterController;
 using FolderMonitor.Converters;
 using FolderMonitor.Models.DirectoryTrackerModel;
 using FolderMonitor.Validators;
 using FolderMonitor.Warnings;
 using Microsoft.Win32;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,12 +19,14 @@ namespace FolderMonitor.Pages
         private MainWindow itsContent;
         private OpenFileDialog itsTrackedDirectoryDialog;
         private string itsChosenFolder;
+        private FilterController itsFilterController;
 
         public MainMenuPage(MainWindow content)
         {
             InitializeComponent();
             itsContent = content;
-            InitTrackedDirectoryDialog();
+            itsTrackedDirectoryDialog = OpenFileDialogCreator.CreateOpenFileDialog(new TrackerOpenFileDialogBuilder());
+            itsFilterController = new FilterController(filtersStackPanel, deleteFilterButtonsStackPanel);
         }
         private void InitTrackedDirectoryDialog()
         {
@@ -34,7 +36,7 @@ namespace FolderMonitor.Pages
         }
         private void AddTracker_Click(object sender, RoutedEventArgs e)
         {
-            List<string> filters = FiltersConverter.ToFiltersList(filtersStackPanel);
+            List<string> filters = FiltersConverter.ToFiltersStringList(itsFilterController.FiltersStackPanel);
             if (FiltersValidator.CheckFilters(filters).GetType() == typeof(None))
             {
                 itsContent.itsDirectoryTrackerView.AddTracker(new DirectoryTrackerModel(itsChosenFolder
@@ -48,7 +50,7 @@ namespace FolderMonitor.Pages
         }
         private void AddFilter_Click(object sender, RoutedEventArgs e)
         {
-            filtersStackPanel.Children.Add(FilterCreator.CreateFilter(new TrackerFilterBuilder(), filtersStackPanel.Children.Count + 1));
+            itsFilterController.AddFilter();
         }
         private void DeleteTracker_Click(object sender, RoutedEventArgs e)
         {
@@ -56,7 +58,7 @@ namespace FolderMonitor.Pages
         }
         private void WarningOkButton_Click(object sender, RoutedEventArgs e)
         {
-            itsWarningStackPanel.Visibility = Visibility.Hidden;
+            warningStackPanel.Visibility = Visibility.Hidden;
         }
     }
 }

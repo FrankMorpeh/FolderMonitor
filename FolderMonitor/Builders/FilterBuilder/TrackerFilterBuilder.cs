@@ -2,13 +2,13 @@
 {
     public class TrackerFilterBuilder : FilterBuilder
     {
-        public override void SetMaxWidth()
+        public override void SetWidth()
         {
-            itsFilter.MaxWidth = 75;
+            itsFilter.Width = 50;
         }
-        public override void SetMaxHeight()
+        public override void SetHeight()
         {
-            itsFilter.MaxHeight = 30;
+            itsFilter.Height = 20;
         }
     }
 }

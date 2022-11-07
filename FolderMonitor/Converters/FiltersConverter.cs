@@ -8,11 +8,11 @@ namespace FolderMonitor.Converters
     public static class FiltersConverter
     {
         // To list
-        public static List<string> ToFiltersList(string filter)
+        public static List<string> ToFiltersStringList(string filter)
         {
             return filter.Split(", ").ToList();
         }
-        public static List<string> ToFiltersList(StackPanel filtersStackPanel)
+        public static List<string> ToFiltersStringList(StackPanel filtersStackPanel)
         {
             List<string> filters = new List<string>();
             foreach (object objFilter in filtersStackPanel.Children)

@@ -12,12 +12,8 @@ namespace FolderMonitor.Builders.FilterBuilder
         {
             itsFilter = new TextBox();
         }
-        public void SetName(int numberOfFilter)
-        {
-            itsFilter.Name = "filter" + Convert.ToString(numberOfFilter);
-        }
-        public abstract void SetMaxWidth();
-        public abstract void SetMaxHeight();
+        public abstract void SetWidth();
+        public abstract void SetHeight();
         public TextBox BuildFilter()
         {
             return itsFilter;

@@ -44,9 +44,19 @@
             </ListView.View>
         </ListView>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Width="200" Height="300">
+        <Grid Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Width="250" Height="300">
                 <Button Click="AddTracker_Click" MaxHeight="50" MaxWidth="100">Add tracker</Button>
                 <GridSplitter Width="10"></GridSplitter>
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
@@ -58,16 +68,25 @@
                     <StackPanel Orientation="Horizontal">
                         <Label>Filter:</Label>
                         <StackPanel Orientation="Vertical">
-                            <StackPanel x:Name="filtersStackPanel">
-                                <TextBox MaxWidth="75" MaxHeight="30"></TextBox>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel x:Name="filtersStackPanel" Orientation="Vertical">
+                                </StackPanel>
+                                <GridSplitter Width="10"></GridSplitter>
+                                <StackPanel x:Name="deleteFilterButtonsStackPanel" Orientation="Vertical">
+                                </StackPanel>
                             </StackPanel>
+                            <GridSplitter Height="10"></GridSplitter>
                             <Button Click="AddFilter_Click">Add filter</Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
-            <Button MaxHeight="50" MaxWidth="100" Click="DeleteTracker_Click">Delete tracker</Button>
-        </StackPanel>
+
+            <StackPanel Grid.Row="1" HorizontalAlignment="Left">
+                <Button MaxHeight="50" MaxWidth="100" Click="DeleteTracker_Click" VerticalAlignment="Top" HorizontalAlignment="Center"
+                        >Delete tracker</Button>
+            </StackPanel>
+        </Grid>
 
         <ListView x:Name="directoryChangesListView" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Center"
                   HorizontalAlignment="Center" MaxWidth="700" MaxHeight="450">
@@ -80,9 +99,9 @@
             </ListView.View>
         </ListView>
 
-        <StackPanel x:Name="itsWarningStackPanel" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" 
+        <StackPanel x:Name="warningStackPanel" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" 
                     HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
-            <TextBlock x:Name="itsWarningTextBlock" HorizontalAlignment="Center"
+            <TextBlock x:Name="warningTextBlock" HorizontalAlignment="Center"
                        TextWrapping="Wrap"/>
             <GridSplitter Height="15"/>
             <Button x:Name="okButton" Content="OK" MaxWidth="75" MaxHeight="60" Click="WarningOkButton_Click"/>
