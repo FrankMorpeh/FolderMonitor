@@ -1,4 +1,5 @@
 ﻿using FolderMonitor.Controllers.DirectoryChangeController;
+using System;
 using System.Windows.Controls;
 
 namespace FolderMonitor.Views.DirectoryChangeView
@@ -22,6 +23,20 @@ namespace FolderMonitor.Views.DirectoryChangeView
         {
             itsChangesListView.ItemsSource = itsDirectoryChangeController.Changes;
             itsChangesListView.Items.Refresh();
+        }
+        public void ShowChangesWithDispatcher()
+        {
+            itsChangesListView.Dispatcher.BeginInvoke
+                (
+                    new Action
+                    (
+                        () =>
+                        {
+                            itsChangesListView.ItemsSource = itsDirectoryChangeController.Changes;
+                            itsChangesListView.Items.Refresh();
+                        }
+                    )
+                );
         }
         public void RemoveChange(int index)
         {

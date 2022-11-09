@@ -5,8 +5,8 @@ namespace FolderMonitor.Memento.TrackersMemento
 {
     public class DirectoryTrackerMemento
     {
-        public DirectoryTrackerMemento(List<IDirectoryTrackerModel> trackers) { Trackers = trackers; }
+        public DirectoryTrackerMemento(List<DirectoryTrackerModel> trackers) { Trackers = trackers; }
 
-        public List<IDirectoryTrackerModel> Trackers { get; set; }
+        public List<DirectoryTrackerModel> Trackers { get; set; }
     }
 }

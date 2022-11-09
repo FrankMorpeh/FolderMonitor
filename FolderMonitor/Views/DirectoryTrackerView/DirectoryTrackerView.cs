@@ -1,5 +1,5 @@
 ﻿using FolderMonitor.Controllers.DirectoryTrackerController;
-using FolderMonitor.Models.DirectoryTrackerModel;
+using System.Collections.Generic;
 using System.Windows.Controls;
 
 namespace FolderMonitor.Views.DirectoryTrackerView
@@ -21,10 +21,15 @@ namespace FolderMonitor.Views.DirectoryTrackerView
             itsTrackersListView.ItemsSource = itsTrackerController.Trackers;
             itsTrackersListView.Items.Refresh();
         }
-        public void AddTracker(IDirectoryTrackerModel trackerModel)
+        public bool AddTracker(string folderPath, List<string> filters)
         {
-            itsTrackerController.AddTracker(trackerModel);
-            ShowTrackers();
+            if (itsTrackerController.AddTracker(folderPath, filters) == true)
+            {
+                ShowTrackers();
+                return true;
+            }
+            else
+                return false;
         }
         public void RemoveTracker(int index)
         {

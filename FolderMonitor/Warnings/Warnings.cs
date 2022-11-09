@@ -14,6 +14,11 @@
         public TrackerIsNotChosen() { Text = "TRACKER IS NOT CHOSEN!"; }
         public string Text { get; }
     }
+    public class SameFilter : IWarning
+    {
+        public SameFilter() { Text = "SUCH FILTERS ARE ALREADY APPLIED TO THIS FOLDER!"; }
+        public string Text { get; }
+    }
     public class None : IWarning
     {
         public None() { Text = "NO ERRORS HAVE BEEN DETECTED"; }

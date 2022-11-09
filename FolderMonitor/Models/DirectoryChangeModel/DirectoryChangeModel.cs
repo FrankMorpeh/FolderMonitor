@@ -2,9 +2,9 @@
 {
     public class DirectoryChangeModel : IDirectoryChangeModel
     {
-        private readonly DirectoryChangeType itsChangeType;
-        private readonly string itsChangeName;
-        private readonly string itsChangeTime;
+        private DirectoryChangeType itsChangeType;
+        private string itsChangeName;
+        private string itsChangeTime;
 
         public DirectoryChangeModel() 
         { 
@@ -19,8 +19,8 @@
             itsChangeTime = changeTime;
         }
 
-        public DirectoryChangeType ChangeType { get { return itsChangeType; } }
-        public string ChangeName { get { return itsChangeName; } }
-        public string ChangeTime { get { return itsChangeTime; } }
+        public DirectoryChangeType ChangeType { get { return itsChangeType; } set { itsChangeType = value; } }
+        public string ChangeName { get { return itsChangeName; } set { itsChangeName = value; } }
+        public string ChangeTime { get { return itsChangeTime; } set { itsChangeTime = value; } }
     }
 }

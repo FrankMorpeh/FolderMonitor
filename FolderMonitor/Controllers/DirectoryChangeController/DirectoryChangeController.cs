@@ -23,7 +23,7 @@ namespace FolderMonitor.Controllers.DirectoryChangeController
         public void AddChange(IDirectoryChangeModel change) 
         { 
             itsChanges.Add((DirectoryChangeModel)change);
-            itsDirectoryChangeView.ShowChanges();
+            itsDirectoryChangeView.ShowChangesWithDispatcher();
         }
         public void RemoveChange(int index) { itsChanges.RemoveAt(index); }
         public void ClearChanges() { itsChanges.Clear(); }
@@ -32,11 +32,11 @@ namespace FolderMonitor.Controllers.DirectoryChangeController
         // Memento
         public DirectoryChangeMemento SaveState()
         {
-            return new DirectoryChangeMemento(Changes);
+            return new DirectoryChangeMemento(Changes.Cast<DirectoryChangeModel>().ToList());
         }
         public void LoadState(DirectoryChangeMemento directoryChangesMemento)
         {
-            itsChanges = directoryChangesMemento.Changes.Cast<DirectoryChangeModel>().ToList();
+            itsChanges = directoryChangesMemento.Changes;
         }
     }
 }

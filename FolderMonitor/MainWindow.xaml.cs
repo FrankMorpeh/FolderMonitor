@@ -44,8 +44,8 @@ namespace FolderMonitor
 
             itsFolderMonitorHandler = new FolderMonitorHandler(itsDirectoryChangeController);
 
-            itsDirectoryTrackerController = new DirectoryTrackerController();
-            DirectoryTrackerSaver.LoadDirectoryTrackers(itsDirectoryTrackerController);
+            itsDirectoryTrackerController = new DirectoryTrackerController(itsFolderMonitorHandler);
+            DirectoryTrackerSaver.LoadDirectoryTrackers((DirectoryTrackerController)itsDirectoryTrackerController);
             itsDirectoryTrackerView = new DirectoryTrackerView((DirectoryTrackerController)itsDirectoryTrackerController);
 
             itsPageController = new PageController(AboutMenuReader.GetAboutMenuPages());
@@ -63,7 +63,7 @@ namespace FolderMonitor
         private void Game_Closing(object sender, CancelEventArgs e)
         {
             DirectoryChangeSaver.SaveDirectoryChanges(itsDirectoryChangeController);
-            DirectoryTrackerSaver.SaveDirectoryTrackers(itsDirectoryTrackerController);
+            DirectoryTrackerSaver.SaveDirectoryTrackers((DirectoryTrackerController)itsDirectoryTrackerController);
         }
     }
 }

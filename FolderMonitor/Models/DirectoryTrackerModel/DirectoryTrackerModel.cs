@@ -1,7 +1,4 @@
-﻿using FolderMonitor.Converters;
-using System.Collections.Generic;
-
-namespace FolderMonitor.Models.DirectoryTrackerModel
+﻿namespace FolderMonitor.Models.DirectoryTrackerModel
 {
     public class DirectoryTrackerModel : IDirectoryTrackerModel
     {
@@ -23,7 +20,7 @@ namespace FolderMonitor.Models.DirectoryTrackerModel
         }
         
         public int IndexInFileWatcher { set { itsIndexInFileWatcher = value; } }
-        public string FolderPath { get { return itsFolderPath; } }
+        public string FolderPath { get { return itsFolderPath; } set { itsFolderPath = value; } }
         public string Filter { get { return itsFilter; } set { itsFilter = value; } }
     }
 }

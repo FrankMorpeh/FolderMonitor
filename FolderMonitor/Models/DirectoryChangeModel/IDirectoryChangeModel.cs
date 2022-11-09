@@ -2,8 +2,8 @@
 {
     public interface IDirectoryChangeModel
     {
-        DirectoryChangeType ChangeType { get; }
-        string ChangeName { get; }
-        string ChangeTime { get; }
+        DirectoryChangeType ChangeType { get; set; }
+        string ChangeName { get; set; }
+        string ChangeTime { get; set; }
     }
 }

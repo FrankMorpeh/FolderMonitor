@@ -5,6 +5,7 @@ using System.IO;
 using System;
 using System.Linq;
 using FolderMonitor.Models.DirectoryTrackerModel;
+using FolderMonitor.Strings;
 
 namespace FolderMonitor.Handlers
 {
@@ -20,7 +21,7 @@ namespace FolderMonitor.Handlers
         }
 
 
-        public int AddFolderToMonitor(IDirectoryTrackerModel trackerModel)
+        public void AddFolderToMonitor(IDirectoryTrackerModel trackerModel)
         {
             if (!itsFilesSystemWatcher.Contains(itsFilesSystemWatcher.Where(fsw => fsw.Equals(trackerModel)).SingleOrDefault()))
             {
@@ -31,14 +32,21 @@ namespace FolderMonitor.Handlers
                 itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].Deleted += OnDeleted;
                 itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].Changed += OnChanged;
                 itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].Renamed += OnRenamed;
-                return itsFilesSystemWatcher.Count - 1;
+                itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].EnableRaisingEvents = true;
+                trackerModel.IndexInFileWatcher = itsFilesSystemWatcher.Count - 1;
             }
-            else
-                return -1;
         }
         public void RemoveFolderFromMonitor(IDirectoryTrackerModel trackerModel)
         {
             itsFilesSystemWatcher.Remove(itsFilesSystemWatcher.Where(fsw => fsw.Path == trackerModel.FolderPath).SingleOrDefault());
+        }
+
+
+        // Loading trackers from file
+        public void LoadFolders(List<IDirectoryTrackerModel> trackerModels)
+        {
+            foreach (IDirectoryTrackerModel trackerModel in trackerModels)
+                AddFolderToMonitor(trackerModel);
         }
 
 
@@ -47,25 +55,25 @@ namespace FolderMonitor.Handlers
         {
             FileSystemWatcher fileSystemWatcher = (FileSystemWatcher)sender;
             itsAddChangeEvent(new DirectoryChangeModel(DirectoryChangeType.Create
-                , e.FullPath + " has been created in " + fileSystemWatcher.Path, DateTime.Now.ToString("G")));
+                , StringFormatter.GetShortPathToFile(e.FullPath) + " has been created in " + fileSystemWatcher.Path, DateTime.Now.ToString("G")));
         }
         private void OnDeleted(object sender, FileSystemEventArgs e)
         {
             FileSystemWatcher fileSystemWatcher = (FileSystemWatcher)sender;
-            itsAddChangeEvent(new DirectoryChangeModel(DirectoryChangeType.Delete, e.FullPath + " has been deleted from " 
-                + fileSystemWatcher.Path, DateTime.Now.ToString("G")));
+            itsAddChangeEvent(new DirectoryChangeModel(DirectoryChangeType.Delete, StringFormatter.GetShortPathToFile(e.FullPath) 
+                + " has been deleted from " + fileSystemWatcher.Path, DateTime.Now.ToString("G")));
         }
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
             FileSystemWatcher fileSystemWatcher = (FileSystemWatcher)sender;
-            itsAddChangeEvent(new DirectoryChangeModel(DirectoryChangeType.Change, 
-                e.FullPath + " has been changed in " + fileSystemWatcher.Path, DateTime.Now.ToString("G")));
+            itsAddChangeEvent(new DirectoryChangeModel(DirectoryChangeType.Change,
+                StringFormatter.GetShortPathToFile(e.FullPath) + " has been changed in " + fileSystemWatcher.Path, DateTime.Now.ToString("G")));
         }
         private void OnRenamed(object sender, FileSystemEventArgs e)
         {
             FileSystemWatcher fileSystemWatcher = (FileSystemWatcher)sender;
-            itsAddChangeEvent(new DirectoryChangeModel(DirectoryChangeType.Rename, 
-                e.FullPath + " has been renamed in " + fileSystemWatcher.Path, DateTime.Now.ToString("G")));
+            itsAddChangeEvent(new DirectoryChangeModel(DirectoryChangeType.Rename,
+                StringFormatter.GetShortPathToFile(e.FullPath) + " has been renamed in " + fileSystemWatcher.Path, DateTime.Now.ToString("G")));
         }
     }
 }

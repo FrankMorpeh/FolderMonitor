@@ -5,8 +5,8 @@ namespace FolderMonitor.Memento.DirectoryChanges
 {
     public class DirectoryChangeMemento
     {
-        public DirectoryChangeMemento(List<IDirectoryChangeModel> changes) { Changes = changes; }
+        public DirectoryChangeMemento(List<DirectoryChangeModel> changes) { Changes = changes; }
 
-        public List<IDirectoryChangeModel> Changes { get; set; }
+        public List<DirectoryChangeModel> Changes { get; set; }
     }
 }

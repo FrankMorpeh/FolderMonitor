@@ -1,5 +1,5 @@
 ﻿using FolderMonitor.Controllers.DirectoryTrackerController;
-using FolderMonitor.Models.DirectoryTrackerModel;
+using System.Collections.Generic;
 using System.Windows.Controls;
 
 namespace FolderMonitor.Views.DirectoryTrackerView
@@ -9,7 +9,7 @@ namespace FolderMonitor.Views.DirectoryTrackerView
         ListView TrackersListView { set; }
         IDirectoryTrackerController TrackerController { set; }
         void ShowTrackers();
-        void AddTracker(IDirectoryTrackerModel trackerModel);
+        bool AddTracker(string folderPath, List<string> filters);
         void RemoveTracker(int index);
         void ClearTrackers();
     }
