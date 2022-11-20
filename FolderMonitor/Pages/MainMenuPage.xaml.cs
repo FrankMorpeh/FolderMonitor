@@ -1,9 +1,6 @@
 ﻿using FolderMonitor.Builders.OpenFileDialogBuilder;
 using FolderMonitor.Controllers.FilterController;
-using FolderMonitor.Converters;
-using FolderMonitor.Validators;
-using FolderMonitor.Warnings;
-using System.Collections.Generic;
+using FolderMonitor.Handlers.MainMenu;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
@@ -15,10 +12,12 @@ namespace FolderMonitor.Pages
     /// </summary>
     public partial class MainMenuPage : Page
     {
-        private MainWindow itsContent;
-        private FolderBrowserDialog itsTrackedDirectoryDialog;
-        private string itsChosenFolder;
-        private FilterController itsFilterController;
+        public MainWindow itsContent;
+        public FolderBrowserDialog itsTrackedDirectoryDialog;
+        public string itsChosenFolder;
+        public int itsSelectedTrackerModelIndex;
+        public FilterController itsFilterController;
+        public MainMenuPageHandler itsMainMenuPageHandler;
         
         public MainMenuPage(MainWindow content)
         {
@@ -26,44 +25,38 @@ namespace FolderMonitor.Pages
             itsContent = content;
 
             itsTrackedDirectoryDialog = FolderBrowserDialogCreator.CreateFolderBrowserDialog(new TrackerCommonFolderBrowserDialogBuilder());
+            itsChosenFolder = string.Empty;
             itsFilterController = new FilterController(filtersStackPanel, deleteFilterButtonsStackPanel);
+            itsMainMenuPageHandler = new MainMenuPageHandler(this);
 
             itsContent.itsDirectoryTrackerView.TrackersListView = trackedDirectoriesListView;
             itsContent.itsDirectoryTrackerView.ShowTrackers();
             itsContent.itsDirectoryChangeView.ChangesListView = directoryChangesListView;
             itsContent.itsDirectoryChangeView.ShowChanges();
         }
-        private void AddTracker_Click(object sender, RoutedEventArgs e)
+        private void AddOrUpdateTracker_Click(object sender, RoutedEventArgs e)
         {
-            List<string> filters = FiltersConverter.ToFiltersStringList(itsFilterController.FiltersStackPanel);
-            if (FiltersValidator.CheckFilters(filters).GetType() == typeof(None))
-            {
-                if (itsContent.itsDirectoryTrackerView.AddTracker(itsChosenFolder, filters) == false)
-                    WarningView.ShowStackPanelWarningByType(warningStackPanel, warningTextBlock, new SameFilter());
-            }
-            else
-                WarningView.ShowStackPanelWarningByType(warningStackPanel, warningTextBlock, new IncorrectFilter());
-        }
-        private void ChooseFolder_Click(object sender, RoutedEventArgs e)
-        {
-            if (itsTrackedDirectoryDialog.ShowDialog() == DialogResult.OK)
-                itsChosenFolder = itsTrackedDirectoryDialog.SelectedPath;
-        }
-        private void AddFilter_Click(object sender, RoutedEventArgs e)
-        {
-            itsFilterController.AddFilter();
+            itsMainMenuPageHandler.AddOrUpdateTracker();
         }
         private void DeleteTracker_Click(object sender, RoutedEventArgs e)
         {
-            int selectedIndex = trackedDirectoriesListView.SelectedIndex;
-            if (selectedIndex != -1)
-                itsContent.itsDirectoryTrackerView.RemoveTracker(selectedIndex);
-            else
-                WarningView.ShowStackPanelWarningByType(warningStackPanel, warningTextBlock, new TrackerIsNotChosen());
+            itsMainMenuPageHandler.DeleteTracker();
+        }
+        private void EditTracker_Click(object sender, RoutedEventArgs e)
+        {
+            itsMainMenuPageHandler.EditTracker();
+        }
+        private void ChooseFolder_Click(object sender, RoutedEventArgs e)
+        {
+            itsMainMenuPageHandler.ChooseFolderForTracker();
+        }
+        private void AddFilter_Click(object sender, RoutedEventArgs e)
+        {
+            itsMainMenuPageHandler.AddFilterForTracker();
         }
         private void WarningOkButton_Click(object sender, RoutedEventArgs e)
         {
-            WarningView.CloseStackPanelWarning(warningStackPanel);
+            itsMainMenuPageHandler.CloseStackPanelWarning();
         }
     }
 }

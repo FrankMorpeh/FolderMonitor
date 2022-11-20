@@ -7,15 +7,18 @@ using System.Linq;
 
 namespace FolderMonitor.Controllers.DirectoryTrackerController
 {
+    delegate void UpdateTrackerAtDelegate(IDirectoryTrackerModel directoryTrackerModel, int index);
     public class DirectoryTrackerController : IDirectoryTrackerController
     {
         private List<DirectoryTrackerModel> itsTrackers;
         private event Action<IDirectoryTrackerModel> itsAddTrackerEvent;
-        private event Action<IDirectoryTrackerModel> itsRemoveTrackerEvent;
+        private event Action<int> itsRemoveTrackerEvent;
+        private event UpdateTrackerAtDelegate itsUpdateTrackerAtEvent;
         private event Action<List<IDirectoryTrackerModel>> itsTrackersLoadedEvent; // adds also trackers to the list of FileSystemWatchers
         public List<IDirectoryTrackerModel> Trackers { get { return itsTrackers.Cast<IDirectoryTrackerModel>().ToList(); } }
 
 
+        // Constructors
         public DirectoryTrackerController(FolderMonitorHandler folderMonitorHandler) 
         { 
             itsTrackers = new List<DirectoryTrackerModel>();
@@ -29,11 +32,13 @@ namespace FolderMonitor.Controllers.DirectoryTrackerController
         private void SetEvents(FolderMonitorHandler folderMonitorHandler)
         {
             itsAddTrackerEvent += folderMonitorHandler.AddFolderToMonitor;
-            itsRemoveTrackerEvent += folderMonitorHandler.RemoveFolderFromMonitor;
+            itsRemoveTrackerEvent += folderMonitorHandler.RemoveFolderFromMonitorAt;
+            itsUpdateTrackerAtEvent += folderMonitorHandler.UpdateFolderInMonitorAt;
             itsTrackersLoadedEvent += folderMonitorHandler.LoadFolders;
         }
 
 
+        // Data handling
         public bool AddTracker(string folderPath, List<string> filters)
         {
             if (!HasSameFilters(folderPath, filters))
@@ -64,14 +69,39 @@ namespace FolderMonitor.Controllers.DirectoryTrackerController
         }
         public void RemoveTracker(int index)
         {
-            itsRemoveTrackerEvent(itsTrackers[index]);
+            itsRemoveTrackerEvent(index);
             itsTrackers.RemoveAt(index);
+        }
+        public bool UpdateTrackerAt(IDirectoryTrackerModel trackerModel, int index)
+        {
+            List<string> filter = new List<string>();
+            filter.Add(trackerModel.Filter);
+
+            if (!HasSameFilters(trackerModel.FolderPath, filter))
+            {
+                itsUpdateTrackerAtEvent(trackerModel, index);
+
+                itsTrackers[index].FolderPath = trackerModel.FolderPath;
+                itsTrackers[index].Filter = trackerModel.Filter;
+
+                return true;
+            }
+            else
+                return false;
         }
         public void ClearTrackers()
         {
             itsTrackers.Clear();
         }
-        
+
+
+        // Indexer
+        public IDirectoryTrackerModel this[int index]
+        {
+            get { return itsTrackers[index]; }
+            set { itsTrackers[index] = (DirectoryTrackerModel)value; }
+        }
+
 
         // Memento
         public DirectoryTrackerMemento SaveState()

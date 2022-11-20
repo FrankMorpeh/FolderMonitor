@@ -36,9 +36,14 @@ namespace FolderMonitor.Handlers
                 trackerModel.IndexInFileWatcher = itsFilesSystemWatcher.Count - 1;
             }
         }
-        public void RemoveFolderFromMonitor(IDirectoryTrackerModel trackerModel)
+        public void RemoveFolderFromMonitorAt(int index)
         {
-            itsFilesSystemWatcher.Remove(itsFilesSystemWatcher.Where(fsw => fsw.Path == trackerModel.FolderPath).SingleOrDefault());
+            itsFilesSystemWatcher.RemoveAt(index);
+        }
+        public void UpdateFolderInMonitorAt(IDirectoryTrackerModel trackerModel, int index)
+        {
+            itsFilesSystemWatcher[index].Path = trackerModel.FolderPath;
+            itsFilesSystemWatcher[index].Filter = trackerModel.Filter;
         }
 
 

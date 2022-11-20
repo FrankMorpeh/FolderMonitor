@@ -1,4 +1,5 @@
 ﻿using FolderMonitor.Controllers.DirectoryTrackerController;
+using FolderMonitor.Models.DirectoryTrackerModel;
 using System.Collections.Generic;
 using System.Windows.Controls;
 
@@ -36,10 +37,25 @@ namespace FolderMonitor.Views.DirectoryTrackerView
             itsTrackerController.RemoveTracker(index);
             ShowTrackers();
         }
+        public bool UpdateTrackerAt(IDirectoryTrackerModel directoryTrackerModel, int index)
+        {
+            if (itsTrackerController.UpdateTrackerAt(directoryTrackerModel, index) == true)
+            {
+                ShowTrackers();
+                return true;
+            }
+            else
+                return false;
+        }
         public void ClearTrackers()
         {
             itsTrackerController.ClearTrackers();
             ShowTrackers();
+        }
+        public void ShowChosenTrackerOnEditPanel(int index, ref string chosenFolder, TextBox filterTextBox)
+        {
+            chosenFolder = itsTrackerController[index].FolderPath;
+            filterTextBox.Text = itsTrackerController[index].Filter;
         }
     }
 }

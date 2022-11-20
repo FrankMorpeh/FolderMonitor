@@ -25,6 +25,20 @@ namespace FolderMonitor.Controllers.FilterController
             itsFilterDeleteButtonsStackPanel.Children.Add(FilterDeleteButtonCreator.CreateFilterDeleteButton(new TrackerFilterDeleteButtonBuilder()
                 , RemoveFilter_Click));
         }
+        public void ClearFilters()
+        {
+            itsFiltersStackPanel.Children.Clear();
+            itsFilterDeleteButtonsStackPanel.Children.Clear();
+        }
+        public TextBox GetFilterTextBoxByIndex(int index)
+        {
+            return (TextBox)itsFiltersStackPanel.Children[index];
+        }
+        public Button GetFilterDeleteButtonByIndex(int index)
+        {
+            return (Button)itsFilterDeleteButtonsStackPanel.Children[index];
+        }
+
         private void RemoveFilter_Click(object sender, RoutedEventArgs e)
         // removes the text filter (TextBox) according to the position of the delete button that fired the event; also removes the delete button
         {

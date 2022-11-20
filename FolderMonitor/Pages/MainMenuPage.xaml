@@ -57,7 +57,7 @@
 
             <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center"
                     Width="250" Height="300">
-                <Button Click="AddTracker_Click" MaxHeight="50" MaxWidth="100">Add tracker</Button>
+                <Button Name="addOrUpdateTrackerButton" Click="AddOrUpdateTracker_Click" MaxHeight="50" MaxWidth="100">Add tracker</Button>
                 <GridSplitter Width="10"></GridSplitter>
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
@@ -76,15 +76,20 @@
                                 </StackPanel>
                             </StackPanel>
                             <GridSplitter Height="10"></GridSplitter>
-                            <Button Click="AddFilter_Click">Add filter</Button>
+                            <Button Name="addFilterButton" Click="AddFilter_Click">Add filter</Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
 
-            <StackPanel Grid.Row="1" HorizontalAlignment="Left">
-                <Button MaxHeight="50" MaxWidth="100" Click="DeleteTracker_Click" VerticalAlignment="Top" HorizontalAlignment="Center"
-                        >Delete tracker</Button>
+            <StackPanel Grid.Row="1" HorizontalAlignment="Left" Orientation="Vertical">
+                <Button MaxHeight="50" MaxWidth="100" Click="DeleteTracker_Click" VerticalAlignment="Top" HorizontalAlignment="Left"
+                        >Delete tracker
+                </Button>
+                <GridSplitter Height="10"></GridSplitter>
+                <Button MaxHeight="50" MaxWidth="100" Click="EditTracker_Click" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    Edit tracker
+                </Button>
             </StackPanel>
         </Grid>
 
