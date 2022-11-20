@@ -1,6 +1,6 @@
 ﻿using FolderMonitor.Models.DirectoryTrackerModel;
 
-namespace FolderMonitor.Handlers.MainMenu.TemplateMethod
+namespace FolderMonitor.Handlers.MainMenu.TrackerDataHandlers.TemplateMethod
 {
     public class UpdateTrackerTemplateMethod : AddOrUpdateTrackerTemplateMethod
     {

@@ -1,4 +1,4 @@
-﻿namespace FolderMonitor.Handlers.MainMenu.TemplateMethod
+﻿namespace FolderMonitor.Handlers.MainMenu.TrackerDataHandlers.TemplateMethod
 {
     public class AddTrackerTemplateMethod : AddOrUpdateTrackerTemplateMethod
     {

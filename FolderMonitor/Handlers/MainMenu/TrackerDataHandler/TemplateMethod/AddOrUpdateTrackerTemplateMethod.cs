@@ -4,7 +4,7 @@ using FolderMonitor.Validators;
 using FolderMonitor.Warnings;
 using System.Collections.Generic;
 
-namespace FolderMonitor.Handlers.MainMenu.TemplateMethod
+namespace FolderMonitor.Handlers.MainMenu.TrackerDataHandlers.TemplateMethod
 {
     public abstract class AddOrUpdateTrackerTemplateMethod
     {

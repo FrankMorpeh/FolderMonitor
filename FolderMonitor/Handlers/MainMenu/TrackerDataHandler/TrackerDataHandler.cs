@@ -1,4 +1,4 @@
-﻿using FolderMonitor.Handlers.MainMenu.TemplateMethod;
+﻿using FolderMonitor.Handlers.MainMenu.TrackerDataHandlers.TemplateMethod;
 using FolderMonitor.Pages;
 using FolderMonitor.Warnings;
 
@@ -8,6 +8,7 @@ namespace FolderMonitor.Handlers.MainMenu
     {
         private MainMenuPage itsMainMenuPage;
         private AddOrUpdateTrackerTemplateMethod itsAddOrUpdateTrackerTemplateMethod;
+        private UIHandler itsUIHandler;
 
         public AddOrUpdateTrackerTemplateMethod AddOrUpdateTrackerTemplateMethod
         {
@@ -18,16 +19,17 @@ namespace FolderMonitor.Handlers.MainMenu
             }
         }
 
-        public TrackerDataHandler(MainMenuPage mainMenuPage)
+        public TrackerDataHandler(MainMenuPage mainMenuPage, UIHandler uIHandler)
         {
             itsMainMenuPage = mainMenuPage;
+            itsUIHandler = uIHandler;
         }
 
         public void AddOrUpdateTracker()
         {
             itsAddOrUpdateTrackerTemplateMethod.AddOrUpdate();
             AddOrUpdateTrackerTemplateMethod = new AddTrackerTemplateMethod();
-            itsMainMenuPage.itsMainMenuPageHandler.ShowAddTrackerTemplate();
+            itsUIHandler.ShowAddTrackerTemplate();
         }
         public void DeleteTracker()
         {
@@ -47,7 +49,7 @@ namespace FolderMonitor.Handlers.MainMenu
                 itsMainMenuPage.itsContent.itsDirectoryTrackerView.ShowChosenTrackerOnEditPanel(itsMainMenuPage.itsSelectedTrackerModelIndex
                     , ref itsMainMenuPage.itsChosenFolder, itsMainMenuPage.itsFilterController.GetFilterTextBoxByIndex(0));
 
-                itsMainMenuPage.itsMainMenuPageHandler.ShowUpdateTrackerTemplate();
+                itsUIHandler.ShowUpdateTrackerTemplate();
                 AddOrUpdateTrackerTemplateMethod = new UpdateTrackerTemplateMethod();
             }
             else

@@ -13,9 +13,9 @@ namespace FolderMonitor.Handlers.MainMenu
         public MainMenuPageHandler(MainMenuPage mainMenuPage) 
         {
             itsMainMenuPage = mainMenuPage;
-            itsTrackerDataHandler = new TrackerDataHandler(itsMainMenuPage);
-            itsFilterDataHandler = new FilterDataHandler(itsMainMenuPage);
             itsUIHandler = new UIHandler(itsMainMenuPage);
+            itsTrackerDataHandler = new TrackerDataHandler(itsMainMenuPage, itsUIHandler);
+            itsFilterDataHandler = new FilterDataHandler(itsMainMenuPage);
         }
 
 
@@ -46,14 +46,6 @@ namespace FolderMonitor.Handlers.MainMenu
 
 
         // UI
-        public void ShowAddTrackerTemplate()
-        {
-            itsUIHandler.ShowAddTrackerTemplate();
-        }
-        public void ShowUpdateTrackerTemplate()
-        {
-            itsUIHandler.ShowUpdateTrackerTemplate();
-        }
         public void CloseStackPanelWarning()
         {
             itsUIHandler.CloseStackPanelWarning();
