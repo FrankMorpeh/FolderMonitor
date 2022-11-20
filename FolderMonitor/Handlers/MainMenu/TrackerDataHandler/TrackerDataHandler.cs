@@ -22,6 +22,7 @@ namespace FolderMonitor.Handlers.MainMenu
         public TrackerDataHandler(MainMenuPage mainMenuPage, UIHandler uIHandler)
         {
             itsMainMenuPage = mainMenuPage;
+            AddOrUpdateTrackerTemplateMethod = new AddTrackerTemplateMethod();
             itsUIHandler = uIHandler;
         }
 
@@ -54,6 +55,10 @@ namespace FolderMonitor.Handlers.MainMenu
             }
             else
                 WarningView.ShowStackPanelWarningByType(itsMainMenuPage.warningStackPanel, itsMainMenuPage.warningTextBlock, new TrackerIsNotChosen());
+        }
+        public void ClearTrackers()
+        {
+            itsMainMenuPage.itsContent.itsDirectoryTrackerView.ClearTrackers();
         }
     }
 }

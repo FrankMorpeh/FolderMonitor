@@ -25,7 +25,7 @@ namespace FolderMonitor.Controllers.DirectoryChangeController
             itsChanges.Add((DirectoryChangeModel)change);
             itsDirectoryChangeView.ShowChangesWithDispatcher();
         }
-        public void RemoveChange(int index) { itsChanges.RemoveAt(index); }
+        public void RemoveChangeAt(int index) { itsChanges.RemoveAt(index); }
         public void ClearChanges() { itsChanges.Clear(); }
 
 

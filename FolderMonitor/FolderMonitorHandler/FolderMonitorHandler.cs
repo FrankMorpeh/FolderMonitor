@@ -45,6 +45,21 @@ namespace FolderMonitor.Handlers
             itsFilesSystemWatcher[index].Path = trackerModel.FolderPath;
             itsFilesSystemWatcher[index].Filter = trackerModel.Filter;
         }
+        public void ClearFoldersInMonitor()
+        {
+            ClearEventHandlers();
+            itsFilesSystemWatcher.Clear();
+        }
+        private void ClearEventHandlers()
+        {
+            foreach (FileSystemWatcher fileSystemWatcher in itsFilesSystemWatcher)
+            {
+                fileSystemWatcher.Created -= OnCreated;
+                fileSystemWatcher.Deleted -= OnDeleted;
+                fileSystemWatcher.Changed -= OnChanged;
+                fileSystemWatcher.Renamed -= OnRenamed;
+            }    
+        }
 
 
         // Loading trackers from file

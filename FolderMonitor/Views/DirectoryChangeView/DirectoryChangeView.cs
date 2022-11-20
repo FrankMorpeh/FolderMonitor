@@ -32,15 +32,14 @@ namespace FolderMonitor.Views.DirectoryChangeView
                     (
                         () =>
                         {
-                            itsChangesListView.ItemsSource = itsDirectoryChangeController.Changes;
-                            itsChangesListView.Items.Refresh();
+                            ShowChanges();
                         }
                     )
                 );
         }
-        public void RemoveChange(int index)
+        public void RemoveChangeAt(int index)
         {
-            itsDirectoryChangeController.RemoveChange(index);
+            itsDirectoryChangeController.RemoveChangeAt(index);
             ShowChanges();
         }
         public void ClearChanges()

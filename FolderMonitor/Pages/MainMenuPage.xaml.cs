@@ -34,6 +34,8 @@ namespace FolderMonitor.Pages
             itsContent.itsDirectoryChangeView.ChangesListView = directoryChangesListView;
             itsContent.itsDirectoryChangeView.ShowChanges();
         }
+
+
         private void AddOrUpdateTracker_Click(object sender, RoutedEventArgs e)
         {
             itsMainMenuPageHandler.AddOrUpdateTracker();
@@ -46,6 +48,12 @@ namespace FolderMonitor.Pages
         {
             itsMainMenuPageHandler.EditTracker();
         }
+        private void ClearTrackers_Click(object sender, RoutedEventArgs e)
+        {
+            itsMainMenuPageHandler.ClearTrackers();
+        }
+
+
         private void ChooseFolder_Click(object sender, RoutedEventArgs e)
         {
             itsMainMenuPageHandler.ChooseFolderForTracker();
@@ -54,6 +62,18 @@ namespace FolderMonitor.Pages
         {
             itsMainMenuPageHandler.AddFilterForTracker();
         }
+
+
+        private void DeleteChange_Click(object sender, RoutedEventArgs e)
+        {
+            itsMainMenuPageHandler.DeleteDirectoryChange();
+        }
+        private void ClearChanges_Click(object sender, RoutedEventArgs e)
+        {
+            itsMainMenuPageHandler.ClearDirectoryChanges();
+        }
+
+
         private void WarningOkButton_Click(object sender, RoutedEventArgs e)
         {
             itsMainMenuPageHandler.CloseStackPanelWarning();

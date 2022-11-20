@@ -90,21 +90,34 @@
                 <Button MaxHeight="50" MaxWidth="100" Click="EditTracker_Click" VerticalAlignment="Top" HorizontalAlignment="Left">
                     Edit tracker
                 </Button>
+                <GridSplitter Height="10"></GridSplitter>
+                <Button MaxHeight="50" MaxWidth="100" Click="ClearTrackers_Click" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    Clear trackers
+                </Button>
             </StackPanel>
         </Grid>
 
-        <ListView x:Name="directoryChangesListView" Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Center"
-                  HorizontalAlignment="Center" MaxWidth="700" MaxHeight="450">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Change type" DisplayMemberBinding="{Binding Path=ChangeType}" Width="75"/>
-                    <GridViewColumn Header="Name of change" DisplayMemberBinding="{Binding Path=ChangeName}" Width="400"/>
-                    <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Path=ChangeTime}" Width="200"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <StackPanel  Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Center">
+            <ListView x:Name="directoryChangesListView" HorizontalAlignment="Center" MaxWidth="700" MaxHeight="450">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Change type" DisplayMemberBinding="{Binding Path=ChangeType}" Width="75"/>
+                        <GridViewColumn Header="Name of change" DisplayMemberBinding="{Binding Path=ChangeName}" Width="400"/>
+                        <GridViewColumn Header="Date" DisplayMemberBinding="{Binding Path=ChangeTime}" Width="200"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
 
-        <StackPanel x:Name="warningStackPanel" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" 
+            <GridSplitter Height="15"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Click="DeleteChange_Click">Delete change</Button>
+                <GridSplitter Width="10"></GridSplitter>
+                <Button Click="ClearChanges_Click">Clear changes</Button>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel x:Name="warningStackPanel" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Vertical"
                     HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
             <TextBlock x:Name="warningTextBlock" HorizontalAlignment="Center"
                        TextWrapping="Wrap"/>

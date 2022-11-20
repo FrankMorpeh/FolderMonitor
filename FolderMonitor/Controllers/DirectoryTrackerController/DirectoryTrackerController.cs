@@ -14,6 +14,7 @@ namespace FolderMonitor.Controllers.DirectoryTrackerController
         private event Action<IDirectoryTrackerModel> itsAddTrackerEvent;
         private event Action<int> itsRemoveTrackerEvent;
         private event UpdateTrackerAtDelegate itsUpdateTrackerAtEvent;
+        private event Action itsClearTrackersEvent;
         private event Action<List<IDirectoryTrackerModel>> itsTrackersLoadedEvent; // adds also trackers to the list of FileSystemWatchers
         public List<IDirectoryTrackerModel> Trackers { get { return itsTrackers.Cast<IDirectoryTrackerModel>().ToList(); } }
 
@@ -34,6 +35,7 @@ namespace FolderMonitor.Controllers.DirectoryTrackerController
             itsAddTrackerEvent += folderMonitorHandler.AddFolderToMonitor;
             itsRemoveTrackerEvent += folderMonitorHandler.RemoveFolderFromMonitorAt;
             itsUpdateTrackerAtEvent += folderMonitorHandler.UpdateFolderInMonitorAt;
+            itsClearTrackersEvent += folderMonitorHandler.ClearFoldersInMonitor;
             itsTrackersLoadedEvent += folderMonitorHandler.LoadFolders;
         }
 
@@ -41,18 +43,27 @@ namespace FolderMonitor.Controllers.DirectoryTrackerController
         // Data handling
         public bool AddTracker(string folderPath, List<string> filters)
         {
-            if (!HasSameFilters(folderPath, filters))
+            if (filters.Count == 0) // if there are no filters, then just add one record both to DirectoryTrackerContorller and FolderMonitorHandler
             {
-                foreach (string filter in filters)
-                {
-                    itsAddTrackerEvent(new DirectoryTrackerModel(folderPath, filter));
-                    // the id for the added tracker will be done inside the event handler (FolderMonitorHandler.AddFolderToMonitor)
-                    itsTrackers.Add(new DirectoryTrackerModel(folderPath, filter));
-                }
+                itsAddTrackerEvent(new DirectoryTrackerModel(folderPath, string.Empty));
+                itsTrackers.Add(new DirectoryTrackerModel(folderPath, string.Empty));
                 return true;
             }
-            else
-                return false;
+            else // add a couple of records for one folder based on different filters
+            {
+                if (!HasSameFilters(folderPath, filters))
+                {
+                    foreach (string filter in filters)
+                    {
+                        itsAddTrackerEvent(new DirectoryTrackerModel(folderPath, filter));
+                        // the id for the added tracker will be done inside the event handler (FolderMonitorHandler.AddFolderToMonitor)
+                        itsTrackers.Add(new DirectoryTrackerModel(folderPath, filter));
+                    }
+                    return true;
+                }
+                else
+                    return false;
+            }
         }
         private bool HasSameFilters(string folderPath, List<string> filters)
         {
@@ -91,6 +102,7 @@ namespace FolderMonitor.Controllers.DirectoryTrackerController
         }
         public void ClearTrackers()
         {
+            itsClearTrackersEvent();
             itsTrackers.Clear();
         }
 

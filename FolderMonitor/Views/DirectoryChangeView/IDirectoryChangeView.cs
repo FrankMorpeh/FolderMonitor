@@ -8,7 +8,7 @@ namespace FolderMonitor.Views.DirectoryChangeView
         ListView ChangesListView { set; }
         IDirectoryChangeController ChangeController { set; }
         void ShowChanges();
-        void RemoveChange(int index);
+        void RemoveChangeAt(int index);
         void ClearChanges();
     }
 }

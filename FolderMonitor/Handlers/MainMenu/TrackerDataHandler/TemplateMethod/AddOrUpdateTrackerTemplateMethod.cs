@@ -1,6 +1,6 @@
 ﻿using FolderMonitor.Converters;
 using FolderMonitor.Pages;
-using FolderMonitor.Validators;
+using FolderMonitor.Validators.TrackerValidators;
 using FolderMonitor.Warnings;
 using System.Collections.Generic;
 
@@ -16,18 +16,27 @@ namespace FolderMonitor.Handlers.MainMenu.TrackerDataHandlers.TemplateMethod
         public void AddOrUpdate()
         {
             itsFilters = FiltersConverter.ToFiltersStringList(itsMainMenuPage.itsFilterController.FiltersStackPanel);
-            if (FiltersValidator.CheckFilters(itsFilters).GetType() == typeof(None))
+
+            IWarning warning = null;
+            if (FolderBrowserDialogValidator.CheckFolderBrowserDialog(itsMainMenuPage.itsChosenFolder).GetType() != typeof(None))
+                warning = new IncorrectFilePath();
+            else if (FiltersValidator.CheckFilters(itsFilters).GetType() != typeof(None))
+                warning = new IncorrectFilter();
+            else
             {
                 if (AddOrUpdateTracker() == false)
-                    WarningView.ShowStackPanelWarningByType(itsMainMenuPage.warningStackPanel, itsMainMenuPage.warningTextBlock, new SameFilter());
+                    warning = new SameFilter();
                 else
                 {
                     // if a tracker is added or updated, clears filters in stackpanel, because we don't need them anymore
                     itsMainMenuPage.itsFilterController.ClearFilters();
+                    itsMainMenuPage.itsChosenFolder = string.Empty; // clear file path in FolderBrowserDialog
+                    warning = new None();
                 }
             }
-            else
-                WarningView.ShowStackPanelWarningByType(itsMainMenuPage.warningStackPanel, itsMainMenuPage.warningTextBlock, new IncorrectFilter());
+            
+            if (warning is not None)
+                WarningView.ShowStackPanelWarningByType(itsMainMenuPage.warningStackPanel, itsMainMenuPage.warningTextBlock, warning);
         }
         protected abstract bool AddOrUpdateTracker();
     }

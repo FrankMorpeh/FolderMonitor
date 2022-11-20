@@ -10,7 +10,7 @@ namespace FolderMonitor.Controllers.DirectoryChangeController
         IDirectoryChangeView ChangeView { set; }
         List<IDirectoryChangeModel> Changes { get; }
         void AddChange(IDirectoryChangeModel directoryChangeModel);
-        void RemoveChange(int index);
+        void RemoveChangeAt(int index);
         void ClearChanges();
         void LoadState(DirectoryChangeMemento directoryChangeMemento);
         DirectoryChangeMemento SaveState();
