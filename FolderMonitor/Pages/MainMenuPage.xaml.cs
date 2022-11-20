@@ -14,7 +14,6 @@ namespace FolderMonitor.Pages
     {
         public MainWindow itsContent;
         public FolderBrowserDialog itsTrackedDirectoryDialog;
-        public string itsChosenFolder;
         public int itsSelectedTrackerModelIndex;
         public FilterController itsFilterController;
         public MainMenuPageHandler itsMainMenuPageHandler;
@@ -25,7 +24,6 @@ namespace FolderMonitor.Pages
             itsContent = content;
 
             itsTrackedDirectoryDialog = FolderBrowserDialogCreator.CreateFolderBrowserDialog(new TrackerCommonFolderBrowserDialogBuilder());
-            itsChosenFolder = string.Empty;
             itsFilterController = new FilterController(filtersStackPanel, deleteFilterButtonsStackPanel);
             itsMainMenuPageHandler = new MainMenuPageHandler(this);
 

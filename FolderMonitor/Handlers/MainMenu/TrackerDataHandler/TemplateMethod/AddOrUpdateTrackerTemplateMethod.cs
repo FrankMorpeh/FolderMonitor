@@ -18,7 +18,7 @@ namespace FolderMonitor.Handlers.MainMenu.TrackerDataHandlers.TemplateMethod
             itsFilters = FiltersConverter.ToFiltersStringList(itsMainMenuPage.itsFilterController.FiltersStackPanel);
 
             IWarning warning = null;
-            if (FolderBrowserDialogValidator.CheckFolderBrowserDialog(itsMainMenuPage.itsChosenFolder).GetType() != typeof(None))
+            if (FolderBrowserDialogValidator.CheckChosenFolderTextBlock(itsMainMenuPage.itsTrackedDirectoryDialog).GetType() != typeof(None))
                 warning = new IncorrectFilePath();
             else if (FiltersValidator.CheckFilters(itsFilters).GetType() != typeof(None))
                 warning = new IncorrectFilter();
@@ -30,7 +30,7 @@ namespace FolderMonitor.Handlers.MainMenu.TrackerDataHandlers.TemplateMethod
                 {
                     // if a tracker is added or updated, clears filters in stackpanel, because we don't need them anymore
                     itsMainMenuPage.itsFilterController.ClearFilters();
-                    itsMainMenuPage.itsChosenFolder = string.Empty; // clear file path in FolderBrowserDialog
+                    itsMainMenuPage.itsTrackedDirectoryDialog.SelectedPath = string.Empty; // clear chosen folder path
                     warning = new None();
                 }
             }

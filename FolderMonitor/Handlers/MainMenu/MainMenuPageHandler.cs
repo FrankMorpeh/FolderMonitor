@@ -6,6 +6,7 @@ namespace FolderMonitor.Handlers.MainMenu
     {
         private MainMenuPage itsMainMenuPage;
         private TrackerDataHandler itsTrackerDataHandler;
+        private FolderDataHandler itsFolderDataHandler;
         private FilterDataHandler itsFilterDataHandler;
         private DirectoryChangeDataHandler itsDirectoryChangeDataHandler;
         private UIHandler itsUIHandler;
@@ -13,7 +14,8 @@ namespace FolderMonitor.Handlers.MainMenu
         public MainMenuPageHandler() 
         { 
             itsMainMenuPage = null; 
-            itsTrackerDataHandler = null; 
+            itsTrackerDataHandler = null;
+            itsFolderDataHandler = null;
             itsFilterDataHandler = null;
             itsDirectoryChangeDataHandler = null;
             itsUIHandler = null; 
@@ -23,6 +25,7 @@ namespace FolderMonitor.Handlers.MainMenu
             itsMainMenuPage = mainMenuPage;
             itsUIHandler = new UIHandler(itsMainMenuPage);
             itsTrackerDataHandler = new TrackerDataHandler(itsMainMenuPage, itsUIHandler);
+            itsFolderDataHandler = new FolderDataHandler(itsMainMenuPage);
             itsFilterDataHandler = new FilterDataHandler(itsMainMenuPage);
             itsDirectoryChangeDataHandler = new DirectoryChangeDataHandler(itsMainMenuPage);
         }
@@ -47,10 +50,10 @@ namespace FolderMonitor.Handlers.MainMenu
         }
 
 
-        // Filters
+        // Folders and filters
         public void ChooseFolderForTracker()
         {
-            itsFilterDataHandler.ChooseFolderForTracker();
+            itsFolderDataHandler.ChooseFolderForTracker();
         }
         public void AddFilterForTracker()
         {

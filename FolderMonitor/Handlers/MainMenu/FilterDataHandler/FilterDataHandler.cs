@@ -1,5 +1,4 @@
 ﻿using FolderMonitor.Pages;
-using System.Windows.Forms;
 
 namespace FolderMonitor.Handlers.MainMenu
 {
@@ -12,11 +11,6 @@ namespace FolderMonitor.Handlers.MainMenu
             itsMainMenuPage = mainMenuPage;
         }
 
-        public void ChooseFolderForTracker()
-        {
-            if (itsMainMenuPage.itsTrackedDirectoryDialog.ShowDialog() == DialogResult.OK)
-                itsMainMenuPage.itsChosenFolder = itsMainMenuPage.itsTrackedDirectoryDialog.SelectedPath;
-        }
         public void AddFilterForTracker()
         {
             itsMainMenuPage.itsFilterController.AddFilter();

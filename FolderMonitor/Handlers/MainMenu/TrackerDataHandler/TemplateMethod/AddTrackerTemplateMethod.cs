@@ -4,7 +4,7 @@
     {
         protected override bool AddOrUpdateTracker()
         {
-            return itsMainMenuPage.itsContent.itsDirectoryTrackerView.AddTracker(itsMainMenuPage.itsChosenFolder, itsFilters);
+            return itsMainMenuPage.itsContent.itsDirectoryTrackerView.AddTracker(itsMainMenuPage.itsTrackedDirectoryDialog.SelectedPath, itsFilters);
         }
     }
 }

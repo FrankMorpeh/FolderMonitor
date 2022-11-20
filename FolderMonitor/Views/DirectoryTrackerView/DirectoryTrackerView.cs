@@ -52,9 +52,9 @@ namespace FolderMonitor.Views.DirectoryTrackerView
             itsTrackerController.ClearTrackers();
             ShowTrackers();
         }
-        public void ShowChosenTrackerOnEditPanel(int index, ref string chosenFolder, TextBox filterTextBox)
+        public void ShowChosenTrackerOnEditPanel(int index, System.Windows.Forms.FolderBrowserDialog folderBrowserDialog, TextBox filterTextBox)
         {
-            chosenFolder = itsTrackerController[index].FolderPath;
+            folderBrowserDialog.SelectedPath = itsTrackerController[index].FolderPath;
             filterTextBox.Text = itsTrackerController[index].Filter;
         }
     }

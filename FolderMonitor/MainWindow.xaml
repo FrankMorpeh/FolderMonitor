@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FolderMonitor"
         mc:Ignorable="d"
-        Title="Folder Monitor" Height="450" Width="800"
+        Title="Folder Monitor" Height="700" Width="1200"
         Closing="Program_Closing">
     <Grid Loaded="Window_Loaded">
         <Frame x:Name="mainFrame" NavigationUIVisibility="Hidden"/>

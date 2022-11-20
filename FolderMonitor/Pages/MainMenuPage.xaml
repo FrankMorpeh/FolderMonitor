@@ -67,6 +67,8 @@
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Label>Folder:</Label>
                         <Button Click="ChooseFolder_Click">Choose</Button>
+                        <GridSplitter Width="5"></GridSplitter>
+                        <TextBlock x:Name="chosenFolderTextBlock" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                     <GridSplitter Height="10"></GridSplitter>
                     <StackPanel Orientation="Horizontal">

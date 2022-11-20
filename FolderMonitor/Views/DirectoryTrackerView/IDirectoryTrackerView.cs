@@ -14,6 +14,6 @@ namespace FolderMonitor.Views.DirectoryTrackerView
         void RemoveTracker(int index);
         bool UpdateTrackerAt(IDirectoryTrackerModel directoryTrackerModel, int index);
         void ClearTrackers();
-        void ShowChosenTrackerOnEditPanel(int index, ref string chosenFolder, TextBox filterTextBox);
+        void ShowChosenTrackerOnEditPanel(int index, System.Windows.Forms.FolderBrowserDialog folderBrowserDialog, TextBox filterTextBox);
     }
 }
