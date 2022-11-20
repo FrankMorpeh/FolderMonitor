@@ -78,5 +78,11 @@ namespace FolderMonitor.Pages
         {
             itsMainMenuPageHandler.CloseStackPanelWarning();
         }
+
+
+        private void About_Click(object sender, RoutedEventArgs e)
+        {
+            itsMainMenuPageHandler.ShowAboutPage();
+        }
     }
 }

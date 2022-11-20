@@ -60,7 +60,7 @@ namespace FolderMonitor
         {
             mainFrame.Content = new MainMenuPage(this); // move to main menu
         }
-        private void Game_Closing(object sender, CancelEventArgs e)
+        private void Program_Closing(object sender, CancelEventArgs e)
         {
             DirectoryChangeSaver.SaveDirectoryChanges(itsDirectoryChangeController);
             DirectoryTrackerSaver.SaveDirectoryTrackers((DirectoryTrackerController)itsDirectoryTrackerController);

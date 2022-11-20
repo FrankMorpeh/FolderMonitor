@@ -35,6 +35,10 @@
             <ColumnDefinition Width="0.12*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        <Menu VerticalAlignment="Top" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Height="18">
+            <MenuItem Header="About" Click="About_Click"/>
+        </Menu>
+
         <ListView x:Name="trackedDirectoriesListView" Grid.Row="1" Grid.Column="1" MaxWidth="350" MaxHeight="250">
             <ListView.View>
                 <GridView>

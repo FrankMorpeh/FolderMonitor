@@ -74,5 +74,12 @@ namespace FolderMonitor.Handlers.MainMenu
         {
             itsUIHandler.CloseStackPanelWarning();
         }
+
+
+        // About
+        public void ShowAboutPage()
+        {
+            itsMainMenuPage.itsContent.mainFrame.Content = new AboutPage(itsMainMenuPage.itsContent);
+        }
     }
 }
