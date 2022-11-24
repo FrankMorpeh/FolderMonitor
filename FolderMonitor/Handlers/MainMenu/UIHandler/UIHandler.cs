@@ -41,6 +41,11 @@ namespace FolderMonitor.Handlers.MainMenu
             itsMainMenuPage.addFilterButton.IsEnabled = true;
         }
 
+        public void ClearChosenFolderName()
+        {
+            itsMainMenuPage.chosenFolderTextBlock.Text = string.Empty;
+        }
+
 
         // Warnings
         public void CloseStackPanelWarning()

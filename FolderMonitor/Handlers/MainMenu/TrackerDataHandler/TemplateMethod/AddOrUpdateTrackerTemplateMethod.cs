@@ -31,6 +31,7 @@ namespace FolderMonitor.Handlers.MainMenu.TrackerDataHandlers.TemplateMethod
                     // if a tracker is added or updated, clears filters in stackpanel, because we don't need them anymore
                     itsMainMenuPage.itsFilterController.ClearFilters();
                     itsMainMenuPage.itsTrackedDirectoryDialog.SelectedPath = string.Empty; // clear chosen folder path
+                    itsMainMenuPage.itsMainMenuPageHandler.ClearChosenFolderName(); // clear chosen folder path on UI
                     warning = new None();
                 }
             }

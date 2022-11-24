@@ -77,6 +77,10 @@ namespace FolderMonitor.Handlers.MainMenu
         {
             itsUIHandler.CloseStackPanelWarning();
         }
+        public void ClearChosenFolderName()
+        {
+            itsUIHandler.ClearChosenFolderName();
+        }
 
 
         // About
