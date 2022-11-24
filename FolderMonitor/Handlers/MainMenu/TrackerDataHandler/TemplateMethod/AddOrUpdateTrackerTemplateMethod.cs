@@ -24,21 +24,19 @@ namespace FolderMonitor.Handlers.MainMenu.TrackerDataHandlers.TemplateMethod
                 warning = new IncorrectFilter();
             else
             {
-                if (AddOrUpdateTracker() == false)
-                    warning = new SameFilter();
-                else
+                warning = AddOrUpdateTracker();
+                if (warning is None)
                 {
                     // if a tracker is added or updated, clears filters in stackpanel, because we don't need them anymore
                     itsMainMenuPage.itsFilterController.ClearFilters();
                     itsMainMenuPage.itsTrackedDirectoryDialog.SelectedPath = string.Empty; // clear chosen folder path
                     itsMainMenuPage.itsMainMenuPageHandler.ClearChosenFolderName(); // clear chosen folder path on UI
-                    warning = new None();
                 }
             }
             
             if (warning is not None)
                 WarningView.ShowStackPanelWarningByType(itsMainMenuPage.warningStackPanel, itsMainMenuPage.warningTextBlock, warning);
         }
-        protected abstract bool AddOrUpdateTracker();
+        protected abstract IWarning AddOrUpdateTracker();
     }
 }

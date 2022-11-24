@@ -1,8 +1,10 @@
-﻿namespace FolderMonitor.Handlers.MainMenu.TrackerDataHandlers.TemplateMethod
+﻿using FolderMonitor.Warnings;
+
+namespace FolderMonitor.Handlers.MainMenu.TrackerDataHandlers.TemplateMethod
 {
     public class AddTrackerTemplateMethod : AddOrUpdateTrackerTemplateMethod
     {
-        protected override bool AddOrUpdateTracker()
+        protected override IWarning AddOrUpdateTracker()
         {
             return itsMainMenuPage.itsContent.itsDirectoryTrackerView.AddTracker(itsMainMenuPage.itsTrackedDirectoryDialog.SelectedPath, itsFilters);
         }

@@ -1,6 +1,8 @@
 ﻿using FolderMonitor.Handlers;
 using FolderMonitor.Memento.TrackersMemento;
 using FolderMonitor.Models.DirectoryTrackerModel;
+using FolderMonitor.Validators.TrackerValidators;
+using FolderMonitor.Warnings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ namespace FolderMonitor.Controllers.DirectoryTrackerController
     public class DirectoryTrackerController : IDirectoryTrackerController
     {
         private List<DirectoryTrackerModel> itsTrackers;
-        private event Action<IDirectoryTrackerModel> itsAddTrackerEvent;
+        private event Func<IDirectoryTrackerModel, IWarning> itsAddTrackerEvent;
         private event Action<int> itsRemoveTrackerEvent;
         private event UpdateTrackerAtDelegate itsUpdateTrackerAtEvent;
         private event Action itsClearTrackersEvent;
@@ -41,36 +43,51 @@ namespace FolderMonitor.Controllers.DirectoryTrackerController
 
 
         // Data handling
-        public bool AddTracker(string folderPath, List<string> filters)
+        public IWarning AddTracker(string folderPath, List<string> filters)
         {
             if (filters.Count == 0) // if there are no filters, then just add one record both to DirectoryTrackerContorller and FolderMonitorHandler
-            {
-                itsAddTrackerEvent(new DirectoryTrackerModel(folderPath, string.Empty));
-                itsTrackers.Add(new DirectoryTrackerModel(folderPath, string.Empty));
-                return true;
-            }
+                return AddTrackerWithNoFilters(folderPath);
             else // add a couple of records for one folder based on different filters
+                return AddTrackerWithManyFilters(folderPath, filters);
+        }
+        private IWarning AddTrackerWithNoFilters(string folderPath)
+        {
+            if (!HasSameFilter(folderPath, string.Empty))
             {
-                if (!HasSameFilters(folderPath, filters))
-                {
-                    foreach (string filter in filters)
-                    {
-                        itsAddTrackerEvent(new DirectoryTrackerModel(folderPath, filter));
-                        // the id for the added tracker will be done inside the event handler (FolderMonitorHandler.AddFolderToMonitor)
-                        itsTrackers.Add(new DirectoryTrackerModel(folderPath, filter));
-                    }
-                    return true;
-                }
-                else
-                    return false;
+                IWarning warning = itsAddTrackerEvent(new DirectoryTrackerModel(folderPath, string.Empty));
+                if (warning is None) // if not None, then folder has been deleted
+                    itsTrackers.Add(new DirectoryTrackerModel(folderPath, string.Empty));
+                return warning;
             }
+            else
+                return new SameFilter();
+        }
+        private IWarning AddTrackerWithManyFilters(string folderPath, List<string> filters)
+        {
+            if (!HasSameFilters(folderPath, filters))
+            {
+                foreach (string filter in filters)
+                {
+                    if (itsAddTrackerEvent(new DirectoryTrackerModel(folderPath, filter)) is None)
+                        itsTrackers.Add(new DirectoryTrackerModel(folderPath, filter));
+                    else
+                        return new FolderHasBeenDeleted();
+                }
+                return new None();
+            }
+            else
+                return new SameFilter();
+        }
+        private bool HasSameFilter(string folderPath, string filter)
+        {
+            return itsTrackers.Exists(t => t.FolderPath == folderPath && t.Filter == filter);
         }
         private bool HasSameFilters(string folderPath, List<string> filters)
         {
             bool hasSameFilters = false;
             foreach (string filter in filters)
             {
-                if (itsTrackers.Exists(t => t.FolderPath == folderPath && t.Filter == filter))
+                if (HasSameFilter(folderPath, filter))
                 {
                     hasSameFilters = true;
                     break;
@@ -78,28 +95,28 @@ namespace FolderMonitor.Controllers.DirectoryTrackerController
             }
             return hasSameFilters;
         }
+
         public void RemoveTracker(int index)
         {
             itsRemoveTrackerEvent(index);
             itsTrackers.RemoveAt(index);
         }
-        public bool UpdateTrackerAt(IDirectoryTrackerModel trackerModel, int index)
-        {
-            List<string> filter = new List<string>();
-            filter.Add(trackerModel.Filter);
 
-            if (!HasSameFilters(trackerModel.FolderPath, filter))
+        public IWarning UpdateTrackerAt(IDirectoryTrackerModel trackerModel, int index)
+        {
+            if (!HasSameFilter(trackerModel.FolderPath, trackerModel.Filter))
             {
                 itsUpdateTrackerAtEvent(trackerModel, index);
 
                 itsTrackers[index].FolderPath = trackerModel.FolderPath;
                 itsTrackers[index].Filter = trackerModel.Filter;
 
-                return true;
+                return new None();
             }
             else
-                return false;
+                return new SameFilter();
         }
+
         public void ClearTrackers()
         {
             itsClearTrackersEvent();
@@ -122,7 +139,7 @@ namespace FolderMonitor.Controllers.DirectoryTrackerController
         }
         public void LoadState(DirectoryTrackerMemento directoryTrackerMemento)
         {
-            itsTrackers = directoryTrackerMemento.Trackers;
+            itsTrackers = DeletedFoldersValidator.RemoveTrackersAccordingToDeletedFolders(directoryTrackerMemento.Trackers);
             itsTrackersLoadedEvent(itsTrackers.Cast<IDirectoryTrackerModel>().ToList());
         }
     }

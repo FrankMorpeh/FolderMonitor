@@ -24,6 +24,11 @@
         public SameFilter() { Text = "SUCH FILTERS ARE ALREADY APPLIED TO THIS FOLDER!"; }
         public string Text { get; }
     }
+    public class FolderHasBeenDeleted : IWarning
+    {
+        public FolderHasBeenDeleted() { Text = "THE FOLDER HAS BEEN DELETED!"; }
+        public string Text { get; }
+    }
     public class DirectoryChangeIsNotChosen : IWarning
     {
         public DirectoryChangeIsNotChosen() { Text = "DIRECTORY CHANGE IS NOT CHOSEN!"; }

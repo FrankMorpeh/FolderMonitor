@@ -3,9 +3,9 @@ using FolderMonitor.Models.DirectoryChangeModel;
 using System.Collections.Generic;
 using System.IO;
 using System;
-using System.Linq;
 using FolderMonitor.Models.DirectoryTrackerModel;
 using FolderMonitor.Strings;
+using FolderMonitor.Warnings;
 
 namespace FolderMonitor.Handlers
 {
@@ -21,9 +21,9 @@ namespace FolderMonitor.Handlers
         }
 
 
-        public void AddFolderToMonitor(IDirectoryTrackerModel trackerModel)
+        public IWarning AddFolderToMonitor(IDirectoryTrackerModel trackerModel)
         {
-            if (!itsFilesSystemWatcher.Contains(itsFilesSystemWatcher.Where(fsw => fsw.Equals(trackerModel)).SingleOrDefault()))
+            try // if it's not added, then there is no such folder anymore
             {
                 itsFilesSystemWatcher.Add(new FileSystemWatcher(trackerModel.FolderPath));
                 itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].NotifyFilter = NotifyFilters.FileName | NotifyFilters.Size;
@@ -34,6 +34,12 @@ namespace FolderMonitor.Handlers
                 itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].Renamed += OnRenamed;
                 itsFilesSystemWatcher[itsFilesSystemWatcher.Count - 1].EnableRaisingEvents = true;
                 trackerModel.IndexInFileWatcher = itsFilesSystemWatcher.Count - 1;
+
+                return new None();
+            }
+            catch (Exception)
+            {
+                return new FolderHasBeenDeleted();
             }
         }
         public void RemoveFolderFromMonitorAt(int index)
