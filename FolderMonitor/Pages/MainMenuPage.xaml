@@ -39,7 +39,7 @@
             <MenuItem Header="About" Click="About_Click"/>
         </Menu>
 
-        <ListView x:Name="trackedDirectoriesListView" Grid.Row="1" Grid.Column="1" MaxWidth="350" MaxHeight="250">
+        <ListView Style="{StaticResource ResourceKey=trackersListViewStyle}" x:Name="trackedDirectoriesListView" Grid.Row="1" Grid.Column="1" MaxWidth="350" MaxHeight="250">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Folder path" DisplayMemberBinding="{Binding Path=FolderPath}" Width="250"/>
@@ -60,8 +60,8 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center"
-                    Width="250" Height="300">
-                <Button Style="{StaticResource ResourceKey=trackerOrChangeButtonStyle}" Name="addOrUpdateTrackerButton" Click="AddOrUpdateTracker_Click">
+                    Width="315" Height="300">
+                <Button Style="{StaticResource ResourceKey=trackerButtonStyle}" Name="addOrUpdateTrackerButton" Click="AddOrUpdateTracker_Click">
                     Add tracker
                 </Button>
                 <GridSplitter Width="10"></GridSplitter>
@@ -70,7 +70,8 @@
                         <Label Style="{StaticResource ResourceKey=baseLabel}">Folder:</Label>
                         <Button Style="{StaticResource ResourceKey=filterButtonStyle}" Click="ChooseFolder_Click">Choose</Button>
                         <GridSplitter Width="5"></GridSplitter>
-                        <TextBlock x:Name="chosenFolderTextBlock" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Style="{StaticResource ResourceKey=chosenFolderTextBlockStyle}" x:Name="chosenFolderTextBlock">
+                        </TextBlock>
                     </StackPanel>
                     <GridSplitter Height="10"></GridSplitter>
                     <StackPanel Orientation="Horizontal">
@@ -91,17 +92,17 @@
             </StackPanel>
 
             <StackPanel Grid.Row="1" HorizontalAlignment="Left" Orientation="Vertical">
-                <Button Style="{StaticResource ResourceKey=trackerOrChangeButtonStyle}" Click="DeleteTracker_Click" 
+                <Button Style="{StaticResource ResourceKey=trackerButtonStyle}" Click="DeleteTracker_Click" 
                         VerticalAlignment="Top" HorizontalAlignment="Left"
                         >Delete tracker
                 </Button>
                 <GridSplitter Height="10"></GridSplitter>
-                <Button Style="{StaticResource ResourceKey=trackerOrChangeButtonStyle}" Click="EditTracker_Click" VerticalAlignment="Top" 
+                <Button Style="{StaticResource ResourceKey=trackerButtonStyle}" Click="EditTracker_Click" VerticalAlignment="Top" 
                         HorizontalAlignment="Left">
                     Edit tracker
                 </Button>
                 <GridSplitter Height="10"></GridSplitter>
-                <Button Style="{StaticResource ResourceKey=trackerOrChangeButtonStyle}" Click="ClearTrackers_Click" 
+                <Button Style="{StaticResource ResourceKey=trackerButtonStyle}" Click="ClearTrackers_Click" 
                         VerticalAlignment="Top" HorizontalAlignment="Left">
                     Clear trackers
                 </Button>
@@ -109,7 +110,7 @@
         </Grid>
 
         <StackPanel  Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" VerticalAlignment="Center">
-            <ListView x:Name="directoryChangesListView" HorizontalAlignment="Center" MaxWidth="700" MaxHeight="450">
+            <ListView Style="{StaticResource ResourceKey=directoryChangesListViewStyle}" x:Name="directoryChangesListView" HorizontalAlignment="Center" MaxWidth="700" MaxHeight="450">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Change type" DisplayMemberBinding="{Binding Path=ChangeType}" Width="75"/>
@@ -122,19 +123,18 @@
             <GridSplitter Height="15"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Style="{StaticResource ResourceKey=trackerOrChangeButtonStyle}" Click="DeleteChange_Click">Delete change</Button>
+                <Button Style="{StaticResource ResourceKey=directoryChangeButtonStyle}" Click="DeleteChange_Click">Delete change</Button>
                 <GridSplitter Width="10"></GridSplitter>
-                <Button Style="{StaticResource ResourceKey=trackerOrChangeButtonStyle}" Click="ClearChanges_Click">Clear changes</Button>
+                <Button Style="{StaticResource ResourceKey=directoryChangeButtonStyle}" Click="ClearChanges_Click">Clear changes</Button>
             </StackPanel>
         </StackPanel>
 
-        <StackPanel x:Name="warningStackPanel" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Vertical"
-                    HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden">
-            <TextBlock x:Name="warningTextBlock" HorizontalAlignment="Center"
-                       TextWrapping="Wrap"/>
+        <StackPanel Style="{StaticResource ResourceKey=warningStackPanelStyle}" x:Name="warningStackPanel"
+                        Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2">
+            <GridSplitter Height="38"/>
+            <TextBlock Style="{StaticResource ResourceKey=warningTextBlockStyle}" x:Name="warningTextBlock"/>
             <GridSplitter Height="15"/>
-            <Button x:Name="okButton" Content="OK" MaxWidth="75" MaxHeight="60" Click="WarningOkButton_Click"/>
-            <GridSplitter Height="15"/>
+            <Button Style="{StaticResource ResourceKey=okButtonStyle}" x:Name="okButton" Content="OK" Click="WarningOkButton_Click"/>
         </StackPanel>
     </Grid>
 </Page>

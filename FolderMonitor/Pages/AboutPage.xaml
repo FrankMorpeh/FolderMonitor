@@ -36,7 +36,7 @@
 
             <GridSplitter Height="10"/>
 
-            <TextBox x:Name="aboutTextBox" Width="600" Height="325" Foreground="Black"/>
+            <TextBox x:Name="aboutTextBox" IsHitTestVisible="False" TextWrapping="Wrap" Width="600" Height="325" Foreground="Black"/>
         </StackPanel>
 
         <Button x:Name="backToEditingButton" Grid.Row="2" Grid.Column="1" Content="BACK TO EDITING" Click="ButtonPage_Click"/>
