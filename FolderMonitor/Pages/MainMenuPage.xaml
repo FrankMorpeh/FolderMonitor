@@ -18,7 +18,7 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="pack://siteoforigin:,,,/SystemMedia/Images/WhiteBackground.jpg"/>
+            <ImageBrush ImageSource="pack://siteoforigin:,,,/SystemMedia/Images/MainBackground.png"/>
         </Grid.Background>
 
         <Grid.RowDefinitions>
@@ -61,18 +61,20 @@
 
             <StackPanel Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center"
                     Width="250" Height="300">
-                <Button Name="addOrUpdateTrackerButton" Click="AddOrUpdateTracker_Click" MaxHeight="50" MaxWidth="100">Add tracker</Button>
+                <Button Style="{StaticResource ResourceKey=trackerOrChangeButtonStyle}" Name="addOrUpdateTrackerButton" Click="AddOrUpdateTracker_Click">
+                    Add tracker
+                </Button>
                 <GridSplitter Width="10"></GridSplitter>
                 <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Label>Folder:</Label>
-                        <Button Click="ChooseFolder_Click">Choose</Button>
+                        <Label Style="{StaticResource ResourceKey=baseLabel}">Folder:</Label>
+                        <Button Style="{StaticResource ResourceKey=filterButtonStyle}" Click="ChooseFolder_Click">Choose</Button>
                         <GridSplitter Width="5"></GridSplitter>
                         <TextBlock x:Name="chosenFolderTextBlock" VerticalAlignment="Center"></TextBlock>
                     </StackPanel>
                     <GridSplitter Height="10"></GridSplitter>
                     <StackPanel Orientation="Horizontal">
-                        <Label>Filter:</Label>
+                        <Label Style="{StaticResource ResourceKey=baseLabel}">Filter:</Label>
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel x:Name="filtersStackPanel" Orientation="Vertical">
@@ -82,22 +84,25 @@
                                 </StackPanel>
                             </StackPanel>
                             <GridSplitter Height="10"></GridSplitter>
-                            <Button Name="addFilterButton" Click="AddFilter_Click">Add filter</Button>
+                            <Button Style="{StaticResource ResourceKey=filterButtonStyle}" Name="addFilterButton" Click="AddFilter_Click">Add filter</Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>
 
             <StackPanel Grid.Row="1" HorizontalAlignment="Left" Orientation="Vertical">
-                <Button MaxHeight="50" MaxWidth="100" Click="DeleteTracker_Click" VerticalAlignment="Top" HorizontalAlignment="Left"
+                <Button Style="{StaticResource ResourceKey=trackerOrChangeButtonStyle}" Click="DeleteTracker_Click" 
+                        VerticalAlignment="Top" HorizontalAlignment="Left"
                         >Delete tracker
                 </Button>
                 <GridSplitter Height="10"></GridSplitter>
-                <Button MaxHeight="50" MaxWidth="100" Click="EditTracker_Click" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Button Style="{StaticResource ResourceKey=trackerOrChangeButtonStyle}" Click="EditTracker_Click" VerticalAlignment="Top" 
+                        HorizontalAlignment="Left">
                     Edit tracker
                 </Button>
                 <GridSplitter Height="10"></GridSplitter>
-                <Button MaxHeight="50" MaxWidth="100" Click="ClearTrackers_Click" VerticalAlignment="Top" HorizontalAlignment="Left">
+                <Button Style="{StaticResource ResourceKey=trackerOrChangeButtonStyle}" Click="ClearTrackers_Click" 
+                        VerticalAlignment="Top" HorizontalAlignment="Left">
                     Clear trackers
                 </Button>
             </StackPanel>
@@ -117,9 +122,9 @@
             <GridSplitter Height="15"/>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Click="DeleteChange_Click">Delete change</Button>
+                <Button Style="{StaticResource ResourceKey=trackerOrChangeButtonStyle}" Click="DeleteChange_Click">Delete change</Button>
                 <GridSplitter Width="10"></GridSplitter>
-                <Button Click="ClearChanges_Click">Clear changes</Button>
+                <Button Style="{StaticResource ResourceKey=trackerOrChangeButtonStyle}" Click="ClearChanges_Click">Clear changes</Button>
             </StackPanel>
         </StackPanel>
 
