@@ -8,8 +8,19 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AboutPage">
 
-    <Grid Background="White">
-        
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/InterfaceTemplates/AboutMenuDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="pack://siteoforigin:,,,/SystemMedia/Images/AboutBackground.png"/>
+        </Grid.Background>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="0.25*"/>
             <RowDefinition Height="0.85*"/>
@@ -25,20 +36,22 @@
 
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-                <Button x:Name="previousPageButton" Grid.Row="1" Grid.Column="2" Click="ButtonPage_Click" MaxHeight="50" MaxWidth="50" Foreground="Black">
-                    Left
+                <Button Style="{StaticResource ResourceKey=arrowButton}" x:Name="previousPageButton" Grid.Row="1" Grid.Column="2" 
+                        Click="ButtonPage_Click">
+                    <Image Source="pack://siteoforigin:,,,/SystemMedia/Images/ArrowLeft.png"/>
                 </Button>
                 <GridSplitter Width="10" Background="Transparent"/>
-                <Button x:Name="nextPageButton" Grid.Row="1" Grid.Column="2" Click="ButtonPage_Click" MaxHeight="50" MaxWidth="50" Foreground="Black">
-                    Right
+                <Button Style="{StaticResource ResourceKey=arrowButton}" x:Name="nextPageButton" Grid.Row="1" Grid.Column="2" Click="ButtonPage_Click">
+                    <Image Source="pack://siteoforigin:,,,/SystemMedia/Images/ArrowRight.png"/>
                 </Button>
             </StackPanel>
 
             <GridSplitter Height="10"/>
 
-            <TextBox x:Name="aboutTextBox" IsHitTestVisible="False" TextWrapping="Wrap" Width="600" Height="325" Foreground="Black"/>
+            <TextBox Style="{StaticResource ResourceKey=aboutTextBoxStyle}" x:Name="aboutTextBox"/>
         </StackPanel>
 
-        <Button x:Name="backToEditingButton" Grid.Row="2" Grid.Column="1" Content="BACK TO EDITING" Click="ButtonPage_Click"/>
+        <Button Style="{StaticResource ResourceKey=backToMainMenuButtonStyle}" x:Name="backToEditingButton" Grid.Row="2" Grid.Column="1" 
+                Content="BACK TO EDITING" Click="ButtonPage_Click"/>
     </Grid>
 </Page>

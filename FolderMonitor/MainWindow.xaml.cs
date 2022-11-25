@@ -5,7 +5,7 @@ using FolderMonitor.Memento.DirectoryChanges;
 using FolderMonitor.Pages;
 using FolderMonitor.Views.DirectoryChangeView;
 using FolderMonitor.Views.PageView;
-using FolderMonitor.Handlers;
+using FolderMonitor.Handlers.FolderMonitor;
 using System;
 using System.Windows;
 using FolderMonitor.Controllers.DirectoryTrackerController;

@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="baseButton">
+        <Setter Property="Button.Background" Value="DodgerBlue"></Setter>
+    </Style>
+
+    <Style x:Key="backToMainMenuButtonStyle" BasedOn="{StaticResource ResourceKey=baseButton}">
+        <Setter Property="Button.FontFamily" Value="Open Sans Condensed"></Setter>
+        <Setter Property="Button.Foreground" Value="White"></Setter>
+        <Setter Property="Button.FontSize" Value="22"></Setter>
+
+        <Setter Property="Button.Height" Value="100"></Setter>
+        <Setter Property="Button.Width" Value="200"></Setter>
+    </Style>
+
+    <Style x:Key="arrowButton" BasedOn="{StaticResource ResourceKey=baseButton}">
+        <Setter Property="Button.Height" Value="35"></Setter>
+        <Setter Property="Button.Width" Value="35"></Setter>
+    </Style>
+
+
+
+    <Style x:Key="aboutTextBoxStyle">
+        <Setter Property="TextBox.IsReadOnly" Value="True"></Setter>
+        
+        <Setter Property="TextBox.TextWrapping" Value="Wrap"></Setter>
+
+        <Setter Property="TextBox.Width" Value="600"></Setter>
+        <Setter Property="TextBox.Height" Value="325"></Setter>
+
+        <Setter Property="TextBox.Foreground" Value="DodgerBlue"></Setter>
+        <Setter Property="TextBox.FontSize" Value="22"></Setter>
+        <Setter Property="TextBox.FontFamily" Value="Open Sans Condensed"></Setter>
+
+        <Setter Property="TextBox.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="TextBox.VerticalScrollBarVisibility" Value="Visible"/>
+    </Style>
+</ResourceDictionary>

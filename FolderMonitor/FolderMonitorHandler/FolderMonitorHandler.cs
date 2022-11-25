@@ -4,10 +4,9 @@ using System.Collections.Generic;
 using System.IO;
 using System;
 using FolderMonitor.Models.DirectoryTrackerModel;
-using FolderMonitor.Strings;
 using FolderMonitor.Warnings;
 
-namespace FolderMonitor.Handlers
+namespace FolderMonitor.Handlers.FolderMonitor
 {
     public class FolderMonitorHandler
     {
@@ -81,25 +80,25 @@ namespace FolderMonitor.Handlers
         {
             FileSystemWatcher fileSystemWatcher = (FileSystemWatcher)sender;
             itsAddDirectoryChangeEvent(new DirectoryChangeModel(DirectoryChangeType.Create
-                , StringFormatter.GetShortPathToFile(e.FullPath) + " has been created in " + fileSystemWatcher.Path, DateTime.Now.ToString("G")));
+                , FolderMonitorHandlerMessageFormer.FormCreateMessage(e.FullPath, fileSystemWatcher.Path), DateTime.Now.ToString("G")));
         }
         private void OnDeleted(object sender, FileSystemEventArgs e)
         {
             FileSystemWatcher fileSystemWatcher = (FileSystemWatcher)sender;
-            itsAddDirectoryChangeEvent(new DirectoryChangeModel(DirectoryChangeType.Delete, StringFormatter.GetShortPathToFile(e.FullPath) 
-                + " has been deleted from " + fileSystemWatcher.Path, DateTime.Now.ToString("G")));
+            itsAddDirectoryChangeEvent(new DirectoryChangeModel(DirectoryChangeType.Delete
+                , FolderMonitorHandlerMessageFormer.FormDeleteMessage(e.FullPath, fileSystemWatcher.Path), DateTime.Now.ToString("G")));
         }
         private void OnChanged(object sender, FileSystemEventArgs e)
         {
             FileSystemWatcher fileSystemWatcher = (FileSystemWatcher)sender;
             itsAddDirectoryChangeEvent(new DirectoryChangeModel(DirectoryChangeType.Change,
-                StringFormatter.GetShortPathToFile(e.FullPath) + " has been changed in " + fileSystemWatcher.Path, DateTime.Now.ToString("G")));
+                FolderMonitorHandlerMessageFormer.FormChangeMessage(e.FullPath, fileSystemWatcher.Path), DateTime.Now.ToString("G")));
         }
         private void OnRenamed(object sender, FileSystemEventArgs e)
         {
             FileSystemWatcher fileSystemWatcher = (FileSystemWatcher)sender;
-            itsAddDirectoryChangeEvent(new DirectoryChangeModel(DirectoryChangeType.Rename,
-                StringFormatter.GetShortPathToFile(e.FullPath) + " has been renamed in " + fileSystemWatcher.Path, DateTime.Now.ToString("G")));
+            itsAddDirectoryChangeEvent(new DirectoryChangeModel(DirectoryChangeType.Rename
+                , FolderMonitorHandlerMessageFormer.FormRenameMessage(e.FullPath, fileSystemWatcher.Path), DateTime.Now.ToString("G")));
         }
     }
 }

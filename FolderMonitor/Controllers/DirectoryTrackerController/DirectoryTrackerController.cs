@@ -1,4 +1,4 @@
-﻿using FolderMonitor.Handlers;
+﻿using FolderMonitor.Handlers.FolderMonitor;
 using FolderMonitor.Memento.TrackersMemento;
 using FolderMonitor.Models.DirectoryTrackerModel;
 using FolderMonitor.Validators.TrackerValidators;
