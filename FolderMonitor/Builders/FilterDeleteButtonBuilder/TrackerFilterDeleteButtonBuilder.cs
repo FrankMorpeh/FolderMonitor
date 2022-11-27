@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using FolderMonitor.Pages;
+using System.Windows;
 
 namespace FolderMonitor.Builders.FilterDeleteButtonBuilder
 {
@@ -19,6 +20,10 @@ namespace FolderMonitor.Builders.FilterDeleteButtonBuilder
         public override void SetClickHandler(RoutedEventHandler routedEventHandler)
         {
             itsFilterDeleteButton.Click += routedEventHandler;
+        }
+        public override void SetStyle(MainMenuPage mainMenuPage)
+        {
+            itsFilterDeleteButton.Style = mainMenuPage.FindResource("deleteFilterButtonStyle") as Style;
         }
     }
 }

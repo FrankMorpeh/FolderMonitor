@@ -1,5 +1,6 @@
 ﻿using FolderMonitor.Builders.FilterBuilder;
 using FolderMonitor.Builders.FilterDeleteButtonBuilder;
+using FolderMonitor.Pages;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -19,11 +20,11 @@ namespace FolderMonitor.Controllers.FilterController
             itsFilterDeleteButtonsStackPanel = filterDeleteButtonsStackPanel;
         }
 
-        public void AddFilter()
+        public void AddFilter(MainMenuPage mainMenuPage)
         {
             itsFiltersStackPanel.Children.Add(FilterCreator.CreateFilter(new TrackerFilterBuilder()));
             itsFilterDeleteButtonsStackPanel.Children.Add(FilterDeleteButtonCreator.CreateFilterDeleteButton(new TrackerFilterDeleteButtonBuilder()
-                , RemoveFilter_Click));
+                , RemoveFilter_Click, mainMenuPage));
         }
         public void ClearFilters()
         {

@@ -13,7 +13,7 @@ namespace FolderMonitor.Handlers.MainMenu
 
         public void AddFilterForTracker()
         {
-            itsMainMenuPage.itsFilterController.AddFilter();
+            itsMainMenuPage.itsFilterController.AddFilter(itsMainMenuPage);
         }
     }
 }

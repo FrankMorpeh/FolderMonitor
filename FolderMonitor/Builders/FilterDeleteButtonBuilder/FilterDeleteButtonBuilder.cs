@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using FolderMonitor.Pages;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace FolderMonitor.Builders.FilterDeleteButtonBuilder
@@ -16,6 +17,7 @@ namespace FolderMonitor.Builders.FilterDeleteButtonBuilder
         public abstract void SetMaxWidth();
         public abstract void SetMaxHeight();
         public abstract void SetClickHandler(RoutedEventHandler routedEventHandler);
+        public abstract void SetStyle(MainMenuPage mainMenuPage);
         public Button BuildFilterDeleteButton()
         {
             return itsFilterDeleteButton;

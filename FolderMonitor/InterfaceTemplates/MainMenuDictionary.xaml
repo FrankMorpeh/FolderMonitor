@@ -44,6 +44,16 @@
         <Setter Property="Button.FontSize" Value="14"></Setter>
     </Style>
 
+    <Style x:Key="deleteFilterButtonStyle" BasedOn="{StaticResource ResourceKey=baseButton}">
+        <Setter Property="Button.Height" Value="20"></Setter>
+        <Setter Property="Button.Width" Value="50"></Setter>
+
+        <Setter Property="Button.BorderBrush" Value="DodgerBlue"></Setter>
+        <Setter Property="Button.Foreground" Value="DodgerBlue"></Setter>
+
+        <Setter Property="Button.FontSize" Value="12"></Setter>
+    </Style>
+
     <Style x:Key="okButtonStyle">
         <Setter Property="Button.Background" Value="DodgerBlue"></Setter>
         

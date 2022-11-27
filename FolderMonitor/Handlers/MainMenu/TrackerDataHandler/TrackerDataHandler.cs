@@ -45,7 +45,7 @@ namespace FolderMonitor.Handlers.MainMenu
             itsMainMenuPage.itsSelectedTrackerModelIndex = itsMainMenuPage.trackedDirectoriesListView.SelectedIndex;
             if (itsMainMenuPage.itsSelectedTrackerModelIndex != -1)
             {
-                itsMainMenuPage.itsFilterController.AddFilter();
+                itsMainMenuPage.itsFilterController.AddFilter(itsMainMenuPage);
 
                 itsMainMenuPage.itsContent.itsDirectoryTrackerView.ShowChosenTrackerOnEditPanel(itsMainMenuPage.itsSelectedTrackerModelIndex
                     , itsMainMenuPage.itsTrackedDirectoryDialog, itsMainMenuPage.itsFilterController.GetFilterTextBoxByIndex(0));
