@@ -9,6 +9,8 @@ namespace FolderMonitor.Builders.FilterBuilder
             filterBuilder.CreateFilter();
             filterBuilder.SetWidth();
             filterBuilder.SetHeight();
+            filterBuilder.SetFontFamily();
+            filterBuilder.SetFontSize();
             return filterBuilder.BuildFilter();
         }
     }

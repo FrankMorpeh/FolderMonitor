@@ -14,6 +14,8 @@ namespace FolderMonitor.Builders.FilterBuilder
         }
         public abstract void SetWidth();
         public abstract void SetHeight();
+        public abstract void SetFontFamily();
+        public abstract void SetFontSize();
         public TextBox BuildFilter()
         {
             return itsFilter;
