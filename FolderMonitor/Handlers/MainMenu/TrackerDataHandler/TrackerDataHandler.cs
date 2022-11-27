@@ -48,7 +48,8 @@ namespace FolderMonitor.Handlers.MainMenu
                 itsMainMenuPage.itsFilterController.AddFilter(itsMainMenuPage);
 
                 itsMainMenuPage.itsContent.itsDirectoryTrackerView.ShowChosenTrackerOnEditPanel(itsMainMenuPage.itsSelectedTrackerModelIndex
-                    , itsMainMenuPage.itsTrackedDirectoryDialog, itsMainMenuPage.itsFilterController.GetFilterTextBoxByIndex(0));
+                    , itsMainMenuPage.itsTrackedDirectoryDialog, itsMainMenuPage.chosenFolderTextBlock
+                    , itsMainMenuPage.itsFilterController.GetFilterTextBoxByIndex(0));
 
                 itsUIHandler.ShowUpdateTrackerTemplate();
                 AddOrUpdateTrackerTemplateMethod = new UpdateTrackerTemplateMethod();

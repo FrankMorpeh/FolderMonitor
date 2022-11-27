@@ -1,5 +1,6 @@
 ﻿using FolderMonitor.Controllers.DirectoryTrackerController;
 using FolderMonitor.Models.DirectoryTrackerModel;
+using FolderMonitor.Strings;
 using FolderMonitor.Warnings;
 using System.Collections.Generic;
 using System.Windows.Controls;
@@ -47,9 +48,11 @@ namespace FolderMonitor.Views.DirectoryTrackerView
             itsTrackerController.ClearTrackers();
             ShowTrackers();
         }
-        public void ShowChosenTrackerOnEditPanel(int index, System.Windows.Forms.FolderBrowserDialog folderBrowserDialog, TextBox filterTextBox)
+        public void ShowChosenTrackerOnEditPanel(int index, System.Windows.Forms.FolderBrowserDialog folderBrowserDialog, TextBlock chosenFolderTextBlock,
+            TextBox filterTextBox)
         {
             folderBrowserDialog.SelectedPath = itsTrackerController[index].FolderPath;
+            chosenFolderTextBlock.Text = StringFormatter.GetShortPathToFile(itsTrackerController[index].FolderPath);
             filterTextBox.Text = itsTrackerController[index].Filter;
         }
     }

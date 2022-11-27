@@ -15,6 +15,7 @@ namespace FolderMonitor.Views.DirectoryTrackerView
         void RemoveTracker(int index);
         IWarning UpdateTrackerAt(IDirectoryTrackerModel directoryTrackerModel, int index);
         void ClearTrackers();
-        void ShowChosenTrackerOnEditPanel(int index, System.Windows.Forms.FolderBrowserDialog folderBrowserDialog, TextBox filterTextBox);
+        void ShowChosenTrackerOnEditPanel(int index, System.Windows.Forms.FolderBrowserDialog folderBrowserDialog, TextBlock chosenFolderTextBlock
+            , TextBox filterTextBox); // FolderBrowserDialog is for actual path, TextBlock is just for displaying the name of the chosen folder
     }
 }
